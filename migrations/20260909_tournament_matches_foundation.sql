@@ -1,0 +1,7 @@
+-- Applied in Supabase as migration: tournament_matches_foundation
+-- Adds public.tournament_matches with RLS/read-only public access.
+-- Adds get_public_tournament_matches(text) for public match/bracket rendering.
+-- Adds authenticated admin-only RPCs admin_create_tournament_match(...) and admin_set_match_result(...).
+-- Validates approved tournament teams, BO1/BO3/BO5, non-draw finished results and winner consistency.
+-- Match create/result actions are written to the existing private.team_activity_log audit trail.
+-- No seed matches or real CS2 tournament format/dates were invented by this migration.
