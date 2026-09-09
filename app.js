@@ -10,25 +10,44 @@
   }
 
   const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      storage: window.localStorage,
+      storageKey: 'esports-auth'
+    }
   });
+
+  const nativeFetch = window.fetch.bind(window);
 
   const api = {
     client,
+
     async getSession() {
       const { data, error } = await client.auth.getSession();
       if (error) throw error;
       return data.session;
     },
+
     async getProfile() {
       const session = await this.getSession();
       if (!session) return null;
-      const { data, error } = await client.from('profiles').select('*').eq('id', session.user.id).maybeSingle();
+      const { data, error } = await client
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .maybeSingle();
       if (error) throw error;
       return data;
     },
+
     async getTournamentBundle(id = 'dota2-winter-2026') {
-      const { data: tournament, error: tError } = await client.from('tournaments').select('*').eq('id', id).maybeSingle();
+      const { data: tournament, error: tError } = await client
+        .from('tournaments')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
       if (tError) throw tError;
       if (!tournament) throw new Error('Турнир не найден');
 
@@ -72,6 +91,7 @@
         playoffs: (tournament.playoffs && Object.keys(tournament.playoffs).length ? tournament.playoffs : legacy?.playoffs) || { upperBracket: {}, lowerBracket: {}, grandFinal: null }
       };
     },
+
     async registerTeam(form) {
       const session = await this.getSession();
       if (!session) throw new Error('Сначала войдите в аккаунт.');
@@ -83,6 +103,18 @@
 
       const params = new URLSearchParams(location.search);
       const tournamentId = params.get('tournament') || params.get('id') || 'dota2-winter-2026';
+
+      const { data: tournament, error: tournamentError } = await client
+        .from('tournaments')
+        .select('id,status')
+        .eq('id', tournamentId)
+        .maybeSingle();
+      if (tournamentError) throw tournamentError;
+      if (!tournament) throw new Error('Турнир не найден.');
+      if (!['upcoming', 'registration'].includes(tournament.status)) {
+        throw new Error('Регистрация на этот турнир закрыта.');
+      }
+
       const roster = [...form.querySelectorAll('.player-card')].map((card, index) => {
         const inputs = [...card.querySelectorAll('input')];
         const captainBox = card.querySelector('.captain-checkbox');
@@ -123,56 +155,102 @@
 
   window.EsportsAPI = api;
 
-  // Compatibility layer: existing pages can keep fetching the old JSON path,
-  // but the data now comes from Supabase.
-  const nativeFetch = window.fetch.bind(window);
   window.fetch = async (resource, init) => {
     const url = typeof resource === 'string' ? resource : resource?.url || '';
     if (/data\/tournament-dota2-2026\.json(?:\?|$)/.test(url)) {
       try {
         const data = await api.getTournamentBundle('dota2-winter-2026');
-        return new Response(JSON.stringify(data), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        return new Response(JSON.stringify(data), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
       } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+        return new Response(JSON.stringify({ error: error.message }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
     }
     return nativeFetch(resource, init);
   };
 
-  async function syncNav() {
-    const session = await api.getSession().catch(() => null);
-    document.querySelectorAll('.profile-link').forEach(el => el.style.display = session ? 'list-item' : 'none');
-    document.querySelectorAll('.login-link').forEach(el => el.style.display = session ? 'none' : 'list-item');
-    document.querySelectorAll('.logout-link').forEach(el => el.style.display = session ? 'list-item' : 'none');
+  function renderNav(session) {
+    document.querySelectorAll('.profile-link').forEach(el => {
+      el.style.display = session ? 'list-item' : 'none';
+    });
+    document.querySelectorAll('.login-link').forEach(el => {
+      el.style.display = session ? 'none' : 'list-item';
+    });
+    document.querySelectorAll('.logout-link').forEach(el => {
+      el.style.display = session ? 'list-item' : 'none';
+    });
+  }
+
+  async function getInitialSession() {
+    try {
+      return await api.getSession();
+    } catch (error) {
+      console.error('Не удалось получить сессию:', error);
+      return null;
+    }
   }
 
   window.logout = async () => {
-    await client.auth.signOut();
-    location.href = 'index.html';
+    try {
+      await client.auth.signOut();
+    } finally {
+      window.location.replace('index.html');
+    }
   };
 
   function showError(message) {
     alert(message || 'Произошла ошибка. Попробуйте ещё раз.');
   }
 
+  function safeReturnUrl(value, fallback = 'profile.html') {
+    if (!value) return fallback;
+    try {
+      const candidate = new URL(value, location.origin);
+      if (candidate.origin !== location.origin) return fallback;
+      return `${candidate.pathname}${candidate.search}${candidate.hash}`;
+    } catch (_) {
+      return fallback;
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', async () => {
-    await syncNav();
-    client.auth.onAuthStateChange(() => syncNav());
+    const initialSession = await getInitialSession();
+    renderNav(initialSession);
+
+    // Do not call Supabase async methods from inside this callback.
+    // Supabase supplies the current session as the second argument.
+    client.auth.onAuthStateChange((_event, session) => {
+      renderNav(session);
+    });
 
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-      loginForm.addEventListener('submit', async (event) => {
+      const returnParam = new URLSearchParams(location.search).get('return');
+      if (initialSession) {
+        window.location.replace(safeReturnUrl(returnParam));
+        return;
+      }
+
+      loginForm.addEventListener('submit', async event => {
         event.preventDefault();
         event.stopImmediatePropagation();
+
         const email = document.getElementById('loginEmail')?.value?.trim();
         const password = document.getElementById('loginPassword')?.value || '';
         const button = loginForm.querySelector('button[type="submit"]');
         if (button) button.disabled = true;
+
         try {
-          const { error } = await client.auth.signInWithPassword({ email, password });
+          const { data, error } = await client.auth.signInWithPassword({ email, password });
           if (error) throw error;
-          const next = new URLSearchParams(location.search).get('return');
-          location.href = next || 'index.html';
+          if (!data.session) throw new Error('Не удалось создать сессию. Попробуйте войти ещё раз.');
+          renderNav(data.session);
+          window.location.replace(safeReturnUrl(returnParam));
         } catch (error) {
           showError(error.message);
           if (button) button.disabled = false;
@@ -182,27 +260,35 @@
 
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
-      registerForm.addEventListener('submit', async (event) => {
+      registerForm.addEventListener('submit', async event => {
         event.preventDefault();
         event.stopImmediatePropagation();
+
         const nickname = document.getElementById('regNickname')?.value?.trim();
         const email = document.getElementById('regEmail')?.value?.trim();
         const password = document.getElementById('regPassword')?.value || '';
         const confirm = document.getElementById('regPasswordConfirm')?.value || '';
         if (password !== confirm) return showError('Пароли не совпадают');
+
         const button = registerForm.querySelector('button[type="submit"]');
         if (button) button.disabled = true;
+
         try {
           const { data, error } = await client.auth.signUp({
             email,
             password,
-            options: { data: { nickname }, emailRedirectTo: `${location.origin}/login.html` }
+            options: {
+              data: { nickname },
+              emailRedirectTo: `${location.origin}/login.html`
+            }
           });
           if (error) throw error;
-          if (data.session) location.href = 'profile.html';
-          else {
+
+          if (data.session) {
+            window.location.replace('profile.html');
+          } else {
             alert('Аккаунт создан. Подтвердите email по ссылке в письме, затем войдите.');
-            location.href = 'login.html';
+            window.location.replace('login.html');
           }
         } catch (error) {
           showError(error.message);
@@ -213,17 +299,18 @@
 
     const teamForm = document.getElementById('registerTeamForm');
     if (teamForm) {
-      const session = await api.getSession().catch(() => null);
-      if (!session) {
+      if (!initialSession) {
         alert('Для регистрации команды необходимо войти в аккаунт.');
         location.href = `login.html?return=${encodeURIComponent(location.pathname + location.search)}`;
         return;
       }
-      teamForm.addEventListener('submit', async (event) => {
+
+      teamForm.addEventListener('submit', async event => {
         event.preventDefault();
         event.stopImmediatePropagation();
         const button = teamForm.querySelector('button[type="submit"]');
         if (button) button.disabled = true;
+
         try {
           const team = await api.registerTeam(teamForm);
           alert('Заявка команды отправлена на рассмотрение.');
@@ -236,22 +323,27 @@
     }
 
     if (location.pathname.endsWith('/profile.html') || location.pathname.endsWith('profile.html')) {
-      const session = await api.getSession().catch(() => null);
-      if (!session) {
-        location.href = 'login.html';
+      if (!initialSession) {
+        location.replace('login.html?return=profile.html');
         return;
       }
+
       const profile = await api.getProfile().catch(() => null);
-      const nickname = profile?.nickname || session.user.user_metadata?.nickname || session.user.email?.split('@')[0] || 'Player';
+      const nickname = profile?.nickname || initialSession.user.user_metadata?.nickname || initialSession.user.email?.split('@')[0] || 'Player';
       const h1 = document.querySelector('.profile-hero h1');
       const avatar = document.querySelector('.profile-avatar');
       const handle = document.querySelector('.profile-handle');
       const teamBadge = document.querySelector('.profile-team');
+
       if (h1) h1.textContent = nickname;
       if (avatar) avatar.textContent = nickname.charAt(0).toUpperCase();
-      if (handle) handle.textContent = `@${nickname} · ${session.user.email}`;
+      if (handle) handle.textContent = `@${nickname} · ${initialSession.user.email}`;
 
-      const { data: ownedTeams } = await client.from('teams').select('name').eq('owner_id', session.user.id).limit(1);
+      const { data: ownedTeams } = await client
+        .from('teams')
+        .select('name')
+        .eq('owner_id', initialSession.user.id)
+        .limit(1);
       if (teamBadge) teamBadge.textContent = ownedTeams?.[0]?.name || 'Без команды';
     }
   });
