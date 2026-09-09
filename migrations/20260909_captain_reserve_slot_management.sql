@@ -1,0 +1,6 @@
+-- Applied to production 2026-09-09.
+-- Adds authenticated captain-only reserve slot lifecycle RPCs:
+-- public.captain_add_reserve_slot(text)
+-- public.captain_remove_reserve_slot(uuid)
+-- Both enforce tournament roster-change lifecycle, max_reserves, ownership,
+-- approved-team state and write to private.team_activity_log.
