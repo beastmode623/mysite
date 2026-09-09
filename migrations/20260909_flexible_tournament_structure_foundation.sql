@@ -1,0 +1,6 @@
+-- Applied in Supabase as migrations flexible_tournament_structure_foundation and match_result_winner_and_loser_advancement.
+-- Adds tournament groups and ordered group-team assignments with public read-only access and admin-only writes.
+-- Extends tournament_matches with bracket_side (group/upper/lower/grand_final) and loser advancement target/slot.
+-- Adds admin RPCs to create groups, assign approved teams, link/unlink loser advancement, and a safe public structure RPC.
+-- admin_set_match_result now advances both the winner and, when configured, the loser into their respective later matches.
+-- This is format-agnostic infrastructure: it does not configure the future CS2 tournament or invent group counts/qualification rules.
