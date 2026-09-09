@@ -1,0 +1,3 @@
+-- Applied to production 2026-09-09.
+-- Adds covering indexes for FK/audit paths and rewrites auth.uid RLS expressions as initplans.
+-- Canonical deployed migration: prelaunch_performance_indexes_and_rls.
