@@ -1,6 +1,27 @@
 (() => {
   'use strict';
 
+  // Global page layout: keeps the copyright footer at the bottom on short pages,
+  // while letting it follow content naturally on long pages. All current pages
+  // load app.js, so this also becomes the default for future pages that use it.
+  const layoutStyle = document.createElement('style');
+  layoutStyle.id = 'global-page-layout';
+  layoutStyle.textContent = `
+    html { min-height: 100%; }
+    body {
+      min-height: 100vh !important;
+      min-height: 100dvh !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    footer {
+      margin-top: auto !important;
+      flex: 0 0 auto !important;
+      width: 100% !important;
+    }
+  `;
+  (document.head || document.documentElement).appendChild(layoutStyle);
+
   const SUPABASE_URL = 'https://wijtkxzleuqdaabfiwsh.supabase.co';
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_q5uwQ3c6b37snDhO2lV7Hg_kZpOEyh0';
 
