@@ -1,0 +1,44 @@
+name: Remove group rank labels
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/remove-group-rank-labels.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.head_commit.message != 'Remove group rank labels from statistics pages'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove group rank labels
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          teams = Path('teams.html')
+          text = teams.read_text(encoding='utf-8')
+          text = text.replace('                                <span class="team-position">#${gs.position} в группе</span>\n', '')
+          teams.write_text(text, encoding='utf-8')
+
+          team = Path('team.html')
+          text = team.read_text(encoding='utf-8')
+          text = text.replace('                <span class="team-rank" id="teamRank">—</span>\n', '')
+          text = text.replace("            document.getElementById('teamRank').textContent = `#${team.groupStage.position} в групповом этапе`;\n", '')
+          team.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add teams.html team.html
+          if git diff --cached --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git commit -m "Remove group rank labels from statistics pages"
+          git push
