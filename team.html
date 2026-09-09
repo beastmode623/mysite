@@ -152,7 +152,6 @@
                     <span class="team-game-badge" id="teamGame">—</span>
                     <span class="team-region" id="teamRegion">—</span>
                 </div>
-                <span class="team-rank" id="teamRank">—</span>
             </div>
 
             <div class="stats-grid" id="statsGrid"></div>
@@ -343,7 +342,6 @@
             document.getElementById('teamName').textContent = team.name;
             document.getElementById('teamGame').textContent = tournament.game;
             document.getElementById('teamRegion').textContent = team.region;
-            document.getElementById('teamRank').textContent = `#${team.groupStage.position} в групповом этапе`;
             document.title = `${team.name} — Esports Platform`;
 
             // Общая статистика (группа + плей-офф)
