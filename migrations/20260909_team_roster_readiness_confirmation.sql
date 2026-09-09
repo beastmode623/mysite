@@ -1,0 +1,4 @@
+-- Applied to production 2026-09-09.
+-- Adds teams.roster_ready_at/roster_ready_by, automatic invalidation on roster mutations,
+-- captain confirm/cancel readiness RPCs, and explicit not_invited invitation state.
+-- Canonical deployed migration: team_roster_readiness_confirmation.
