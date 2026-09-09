@@ -1,0 +1,2 @@
+-- Applied to Supabase production on 2026-09-09.
+-- Pending invitations are shown only while the tournament is in draft, registration or upcoming status.
