@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Команда — Esports Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --emerald: #34d399; --tiffany: #2dd4bf; --tiffany-light: #5eead4;
+            --bg-dark: #050a08; --bg-mid: #0a1a14; --bg-tiffany: #081818;
+            --text-primary: #f0fdf4; --text-secondary: #6b9b87;
+            --glass-bg: rgba(12, 40, 30, 0.35); --glass-bg-hover: rgba(16, 55, 40, 0.45);
+            --glass-border: rgba(52, 211, 153, 0.12); --glass-border-hover: rgba(52, 211, 153, 0.3);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+            --accent-gradient: linear-gradient(135deg, var(--emerald) 0%, var(--tiffany) 100%);
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: linear-gradient(170deg, var(--bg-dark), var(--bg-mid) 50%, var(--bg-tiffany)); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+        header { background: rgba(5,10,8,0.6); backdrop-filter: saturate(200%) blur(30px); -webkit-backdrop-filter: saturate(200%) blur(30px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        nav { max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 52px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 21px; font-weight: 600; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--emerald); }
+        .profile-link, .logout-link { display: none; }
+        .nav-links .btn-login { padding: 7px 20px; background: var(--glass-bg); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 980px; color: var(--text-primary) !important; font-weight: 500; transition: all 0.35s cubic-bezier(0.28,0.11,0.32,1); box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); cursor: pointer; }
+        .nav-links .btn-login:hover { background: var(--tiffany); color: #050a08 !important; border-color: var(--tiffany); box-shadow: 0 0 24px rgba(45,212,191,0.35), inset 0 1px 0 rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+        .container { max-width: 1080px; margin: 0 auto; padding: 60px 24px 100px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--tiffany); text-decoration: none; font-size: 15px; margin-bottom: 40px; }
+        .back-link:hover { color: var(--tiffany-light); }
+        .back-link::before { content: '‹'; font-size: 20px; }
+
+        .glass { background: var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: var(--glass-shadow); transition: transform 0.4s cubic-bezier(0.28,0.11,0.32,1), border-color 0.3s, background 0.3s; }
+        .glass:hover { border-color: var(--glass-border-hover); background: var(--glass-bg-hover); transform: translateY(-4px); }
+
+        /* ── Hero команды ── */
+        .team-hero { text-align: center; padding: 60px 0 80px; border-bottom: 1px solid var(--glass-border); margin-bottom: 60px; }
+        .team-logo-large { width: 120px; height: 120px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: #050a08; margin: 0 auto 24px; box-shadow: 0 0 60px rgba(52,211,153,0.2); }
+        .team-hero h1 { font-size: 56px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 12px; background: linear-gradient(180deg, #fff 20%, var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .team-meta { font-size: 17px; color: var(--text-secondary); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .team-game-badge { display: inline-block; padding: 4px 12px; background: rgba(52,211,153,0.1); color: var(--tiffany); border-radius: 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .team-region { color: var(--text-secondary); }
+        .team-rank { display: inline-block; padding: 6px 20px; background: rgba(52,211,153,0.12); color: var(--emerald); border-radius: 980px; font-size: 14px; font-weight: 600; border: 1px solid rgba(52,211,153,0.2); }
+
+        /* ── Статистика ── */
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 60px; }
+        .stat-card { text-align: center; padding: 28px 16px; }
+        .stat-value { font-size: 36px; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
+        .stat-label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+        .section { margin-bottom: 60px; }
+        .section-title { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+        .section-title::before { content: ''; width: 4px; height: 28px; background: var(--accent-gradient); border-radius: 2px; }
+
+        /* ── Состав команды (игроки) ── */
+        .roster-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .player-card { padding: 24px; display: flex; gap: 16px; min-height: 180px; }
+        .player-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #050a08; flex-shrink: 0; }
+        .player-info { display: flex; flex-direction: column; flex: 1; }
+        .player-info h4 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+        .player-role { color: var(--tiffany); font-size: 13px; margin-bottom: 12px; font-weight: 500; }
+        .player-hero-pool { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+        .hero-tag { display: inline-block; padding: 3px 10px; background: rgba(45,212,191,0.08); color: var(--tiffany-light); border: 1px solid rgba(52,211,153,0.15); border-radius: 6px; font-size: 11px; font-weight: 500; }
+        .player-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 12px; color: var(--text-secondary); margin-top: auto; padding-top: 12px; border-top: 1px solid var(--glass-border); }
+        .player-stat-item { display: flex; justify-content: space-between; }
+        .player-stat-item strong { color: var(--text-primary); font-weight: 600; }
+
+        /* ── Таблица матчей ── */
+        .table-wrapper { overflow-x: auto; border-radius: 20px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { padding: 14px 16px; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; background: rgba(52,211,153,0.04); border-bottom: 1px solid var(--glass-border); text-align: center; white-space: nowrap; }
+        th:nth-child(2), th:nth-child(3) { text-align: left; }
+        td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--glass-border); text-align: center; vertical-align: middle; }
+        td:nth-child(2), td:nth-child(3) { text-align: left; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(52,211,153,0.03); }
+        .match-team-cell { display: flex; align-items: center; gap: 10px; }
+        .match-team-logo { width: 26px; height: 26px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #050a08; flex-shrink: 0; }
+        .match-team-name { font-size: 14px; font-weight: 500; white-space: nowrap; }
+        .result-win { color: var(--emerald); font-weight: 600; }
+        .result-loss { color: #ff453a; font-weight: 600; }
+        /* Уменьшенный шрифт счёта — всё на одной строке */
+        .score-cell {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+        .score-cell .score-my { color: var(--emerald); }
+        .score-cell .score-opp { color: var(--text-secondary); }
+        .score-cell .score-sep { color: var(--text-secondary); margin: 0 4px; }
+        .round-badge { display: inline-block; padding: 4px 10px; background: rgba(52,211,153,0.1); color: var(--tiffany); border-radius: 6px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+
+        /* ── Достижения ── */
+        .achievements-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .achievement-card { padding: 28px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; min-height: 160px; }
+        .achievement-icon { font-size: 32px; margin-bottom: 12px; }
+        .achievement-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+        .achievement-desc { color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin-top: auto; }
+
+        /* ── Состояния ── */
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+        .empty-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+
+        .loading-state { text-align: center; padding: 80px 24px; color: var(--text-secondary); }
+        .loading-spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid var(--glass-border); border-top-color: var(--emerald); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 16px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        footer { background: var(--bg-dark); padding: 40px 24px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--glass-border); }
+
+        @media (max-width: 834px) {
+            .team-hero h1 { font-size: 36px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .roster-grid, .achievements-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 24px; }
+            th, td { padding: 12px 10px; font-size: 13px; }
+            .match-team-name { font-size: 13px; }
+            .score-cell { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Esports</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="tournaments.html">Турниры</a></li>
+                <li><a href="teams.html">Статистика</a></li>
+                <li class="profile-link"><a href="profile.html">Профиль</a></li>
+                <li class="login-link"><a href="login.html" class="btn-login">Вход</a></li>
+                <li class="logout-link"><a href="#" class="btn-login" onclick="logout(); return false;">Выйти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <a href="teams.html" class="back-link">К статистике</a>
+
+        <div id="loadingState" class="loading-state">
+            <div class="loading-spinner"></div>
+            <div>Загрузка данных команды...</div>
+        </div>
+
+        <div id="mainContent" style="display: none;">
+            <div class="team-hero">
+                <div class="team-logo-large" id="teamLogo">—</div>
+                <h1 id="teamName">—</h1>
+                <div class="team-meta">
+                    <span class="team-game-badge" id="teamGame">—</span>
+                    <span class="team-region" id="teamRegion">—</span>
+                </div>
+                <span class="team-rank" id="teamRank">—</span>
+            </div>
+
+            <div class="stats-grid" id="statsGrid"></div>
+
+            <div class="section">
+                <h2 class="section-title">Состав команды</h2>
+                <div class="roster-grid" id="rosterGrid"></div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Матчи плей-офф</h2>
+                <div class="table-wrapper glass">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 90px;">Дата</th>
+                                <th>Команда</th>
+                                <th>Соперник</th>
+                                <th style="width: 70px;">Счёт</th>
+                                <th style="width: 90px;">Результат</th>
+                                <th style="width: 130px;">Раунд</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matchesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Достижения</h2>
+                <div class="achievements-grid" id="achievementsGrid"></div>
+            </div>
+        </div>
+
+        <div id="errorState" style="display: none;" class="empty-state glass">
+            <div class="empty-state-icon">⚠️</div>
+            <h3 style="margin-bottom: 12px;">Команда не найдена</h3>
+            <p style="color: var(--text-secondary);" id="errorMessage">Проверьте правильность URL</p>
+        </div>
+    </div>
+
+    <footer><p>© 2026 Esports Platform. Все права защищены.</p></footer>
+
+    <script>
+        const TOURNAMENT_FILE = 'data/tournament-dota2-2026.json';
+
+        function formatDateShort(dateStr) {
+            if (!dateStr) return '—';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+        }
+
+        function calculateKDA(kills, deaths, assists) {
+            if (deaths === 0) return (kills + assists).toFixed(1);
+            return ((kills + assists) / deaths).toFixed(2);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // СБОР ВСЕХ МАТЧЕЙ ПЛЕЙ-ОФФ
+        // ═══════════════════════════════════════════════════════════════
+        function collectAllPlayoffMatches(playoffs) {
+            const matches = [];
+            const ub = playoffs.upperBracket;
+            if (ub.playIn) ub.playIn.forEach(m => matches.push({...m, bracket: 'UB'}));
+            if (ub.roundOf16) ub.roundOf16.forEach(m => matches.push({...m, bracket: 'UB'}));
+            if (ub.semifinals) ub.semifinals.forEach(m => matches.push({...m, bracket: 'UB'}));
+            if (ub.final) matches.push({...ub.final, bracket: 'UB'});
+
+            const lb = playoffs.lowerBracket;
+            if (lb.round1) lb.round1.forEach(m => matches.push({...m, bracket: 'LB'}));
+            if (lb.roundOf16) lb.roundOf16.forEach(m => matches.push({...m, bracket: 'LB'}));
+            if (lb.quarterfinals) lb.quarterfinals.forEach(m => matches.push({...m, bracket: 'LB'}));
+            if (lb.semifinals) lb.semifinals.forEach(m => matches.push({...m, bracket: 'LB'}));
+            if (lb.final) matches.push({...lb.final, bracket: 'LB'});
+
+            if (playoffs.grandFinal) matches.push({...playoffs.grandFinal, bracket: 'GF'});
+
+            return matches;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // РАСЧЁТ ОБЩЕЙ СТАТИСТИКИ (группа + плей-офф)
+        // ═══════════════════════════════════════════════════════════════
+        function calculateTotalStats(team, allMatches) {
+            // Групповой этап
+            const gs = team.groupStage;
+            const gsWins = gs.wins;
+            const gsLosses = gs.losses;
+            const gsMapDiff = parseInt(gs.mapDifference) || 0;
+
+            // Плей-офф — считаем победы/поражения команды
+            const teamMatches = allMatches.filter(m => m.team1 === team.id || m.team2 === team.id);
+            let poWins = 0;
+            let poLosses = 0;
+            let poMapDiff = 0;
+
+            teamMatches.forEach(m => {
+                const isTeam1 = m.team1 === team.id;
+                const myScore = isTeam1 ? m.score1 : m.score2;
+                const oppScore = isTeam1 ? m.score2 : m.score1;
+
+                if (myScore > oppScore) {
+                    poWins++;
+                } else if (myScore < oppScore) {
+                    poLosses++;
+                }
+                // Разница карт в плей-оффе
+                poMapDiff += (myScore - oppScore);
+            });
+
+            // Общая статистика
+            const totalWins = gsWins + poWins;
+            const totalLosses = gsLosses + poLosses;
+            const totalGames = totalWins + totalLosses;
+            const totalWinrate = totalGames > 0 ? Math.round((totalWins / totalGames) * 100) : 0;
+            const totalMapDiff = gsMapDiff + poMapDiff;
+            const totalPoints = gs.points; // очки есть только за группу
+
+            return {
+                totalWins,
+                totalLosses,
+                totalGames,
+                totalWinrate,
+                totalMapDiff,
+                totalPoints,
+                gsWins, gsLosses, gsMapDiff,
+                poWins, poLosses, poMapDiff,
+                poMatchesTotal: teamMatches.length
+            };
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // ГЕНЕРАЦИЯ ДОСТИЖЕНИЙ
+        // ═══════════════════════════════════════════════════════════════
+        function generateAchievements(team, allMatches, totalStats) {
+            const achievements = [];
+            const position = team.groupStage.position;
+
+            if (position === 1) {
+                achievements.push({ icon: '🏆', title: 'Победитель группы', desc: '1-е место в групповом этапе' });
+            } else if (position <= 3) {
+                achievements.push({ icon: '🥇', title: `Топ-${position}`, desc: `${position}-е место в групповом этапе` });
+            } else if (position <= 8) {
+                achievements.push({ icon: '⭐', title: 'Плей-офф', desc: `Выход в плей-офф (${position} место)` });
+            } else {
+                achievements.push({ icon: '🎖️', title: 'Участник турнира', desc: `Групповой этап (${position} место)` });
+            }
+
+            // Общая статистика побед
+            if (totalStats.totalGames > 0) {
+                achievements.push({
+                    icon: '⚔️',
+                    title: 'Всего побед',
+                    desc: `${totalStats.totalWins} побед в ${totalStats.totalGames} матчах`
+                });
+            }
+
+            // Победы в плей-оффе отдельно
+            if (totalStats.poMatchesTotal > 0) {
+                achievements.push({
+                    icon: '🔥',
+                    title: 'Боец плей-офф',
+                    desc: `${totalStats.poWins} побед в ${totalStats.poMatchesTotal} матчах`
+                });
+            }
+
+            // Общий винрейт
+            if (totalStats.totalWinrate >= 70) {
+                achievements.push({ icon: '💎', title: 'Доминирование', desc: `Общий винрейт ${totalStats.totalWinrate}%` });
+            } else if (totalStats.totalWinrate >= 50) {
+                achievements.push({ icon: '💪', title: 'Стабильность', desc: `Общий винрейт ${totalStats.totalWinrate}%` });
+            }
+
+            // Общая разница карт
+            if (totalStats.totalMapDiff >= 10) {
+                achievements.push({ icon: '📈', title: 'Разгром', desc: `Общая разница карт ${totalStats.totalMapDiff > 0 ? '+' : ''}${totalStats.totalMapDiff}` });
+            }
+
+            return achievements;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // РЕНДЕР СТРАНИЦЫ
+        // ═══════════════════════════════════════════════════════════════
+        function renderTeamPage(team, tournament, allMatches) {
+            // Hero
+            document.getElementById('teamLogo').textContent = team.logo;
+            document.getElementById('teamName').textContent = team.name;
+            document.getElementById('teamGame').textContent = tournament.game;
+            document.getElementById('teamRegion').textContent = team.region;
+            document.getElementById('teamRank').textContent = `#${team.groupStage.position} в групповом этапе`;
+            document.title = `${team.name} — Esports Platform`;
+
+            // Общая статистика (группа + плей-офф)
+            const totalStats = calculateTotalStats(team, allMatches);
+
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card glass">
+                    <div class="stat-value">${totalStats.totalWins}</div>
+                    <div class="stat-label">Побед</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">${totalStats.totalLosses}</div>
+                    <div class="stat-label">Поражений</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">${totalStats.totalWinrate}%</div>
+                    <div class="stat-label">Винрейт</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">${totalStats.totalPoints}</div>
+                    <div class="stat-label">Очков</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">${totalStats.totalMapDiff > 0 ? '+' : ''}${totalStats.totalMapDiff}</div>
+                    <div class="stat-label">Разница карт</div>
+                </div>
+            `;
+
+            // Состав команды
+            const rosterGrid = document.getElementById('rosterGrid');
+            if (team.players && team.players.length > 0) {
+                rosterGrid.innerHTML = team.players.map(player => {
+                    const kda = calculateKDA(player.stats.kills, player.stats.deaths, player.stats.assists);
+                    const heroPoolHtml = player.heroPool && player.heroPool.length > 0
+                        ? `<div class="player-hero-pool">${player.heroPool.map(h => `<span class="hero-tag">${h}</span>`).join('')}</div>`
+                        : '';
+
+                    return `
+                        <div class="player-card glass">
+                            <div class="player-avatar">${player.initials}</div>
+                            <div class="player-info">
+                                <h4>${player.name}</h4>
+                                <div class="player-role">${player.role}</div>
+                                ${heroPoolHtml}
+                                <div class="player-stats">
+                                    <div class="player-stat-item"><span>K/D/A</span><strong>${player.stats.kills}/${player.stats.deaths}/${player.stats.assists}</strong></div>
+                                    <div class="player-stat-item"><span>KDA</span><strong>${kda}</strong></div>
+                                    <div class="player-stat-item"><span>GPM</span><strong>${player.stats.gpm}</strong></div>
+                                    <div class="player-stat-item"><span>XPM</span><strong>${player.stats.xpm}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                rosterGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-state-icon">👥</div>
+                        <h3>Состав не заполнен</h3>
+                        <p style="color: var(--text-secondary);">Данные об игроках будут добавлены позже</p>
+                    </div>
+                `;
+            }
+
+            // Матчи плей-офф
+            const teamMatches = allMatches.filter(m => m.team1 === team.id || m.team2 === team.id);
+            const matchesTable = document.getElementById('matchesTable');
+
+            if (teamMatches.length > 0) {
+                teamMatches.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                matchesTable.innerHTML = teamMatches.map(match => {
+                    const isTeam1 = match.team1 === team.id;
+                    const opponentId = isTeam1 ? match.team2 : match.team1;
+                    const opponent = allTeams.find(t => t.id === opponentId);
+                    const isWin = match.winner === team.id;
+                    const resultClass = isWin ? 'result-win' : 'result-loss';
+                    const resultText = isWin ? 'Победа' : 'Поражение';
+
+                    const myScore = isTeam1 ? match.score1 : match.score2;
+                    const oppScore = isTeam1 ? match.score2 : match.score1;
+
+                    return `
+                        <tr>
+                            <td>${formatDateShort(match.date)}</td>
+                            <td>
+                                <div class="match-team-cell">
+                                    <div class="match-team-logo">${team.logo}</div>
+                                    <span class="match-team-name">${team.name}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="match-team-cell">
+                                    <div class="match-team-logo">${opponent ? opponent.logo : '?'}</div>
+                                    <span class="match-team-name">${opponent ? opponent.name : 'TBD'}</span>
+                                </div>
+                            </td>
+                            <td class="score-cell">
+                                <span class="score-my">${myScore}</span><span class="score-sep">:</span><span class="score-opp">${oppScore}</span>
+                            </td>
+                            <td class="${resultClass}">${resultText}</td>
+                            <td><span class="round-badge">${match.round}</span></td>
+                        </tr>
+                    `;
+                }).join('');
+            } else {
+                matchesTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                            Команда не участвовала в плей-офф
+                        </td>
+                    </tr>
+                `;
+            }
+
+            // Достижения
+            const achievements = generateAchievements(team, allMatches, totalStats);
+            const achievementsGrid = document.getElementById('achievementsGrid');
+
+            if (achievements.length > 0) {
+                achievementsGrid.innerHTML = achievements.map(a => `
+                    <div class="achievement-card glass">
+                        <div class="achievement-icon">${a.icon}</div>
+                        <div class="achievement-title">${a.title}</div>
+                        <div class="achievement-desc">${a.desc}</div>
+                    </div>
+                `).join('');
+            } else {
+                achievementsGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-state-icon">🏆</div>
+                        <h3>Достижений пока нет</h3>
+                    </div>
+                `;
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // ЗАГРУЗКА ДАННЫХ
+        // ═══════════════════════════════════════════════════════════════
+        let allTeams = [];
+
+        async function loadTeamData() {
+            const loadingState = document.getElementById('loadingState');
+            const mainContent = document.getElementById('mainContent');
+            const errorState = document.getElementById('errorState');
+            const errorMessage = document.getElementById('errorMessage');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const teamId = urlParams.get('team');
+
+            if (!teamId) {
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                errorMessage.textContent = 'Не указан ID команды в URL';
+                return;
+            }
+
+            try {
+                const response = await fetch(TOURNAMENT_FILE);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+
+                const team = data.teams.find(t => t.id === teamId);
+
+                if (!team) {
+                    loadingState.style.display = 'none';
+                    errorState.style.display = 'block';
+                    errorMessage.textContent = `Команда с ID "${teamId}" не найдена`;
+                    return;
+                }
+
+                allTeams = data.teams;
+                const allMatches = collectAllPlayoffMatches(data.playoffs);
+
+                renderTeamPage(team, data.tournament, allMatches);
+
+                loadingState.style.display = 'none';
+                mainContent.style.display = 'block';
+
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                errorMessage.textContent = error.message;
+            }
+        }
+document.addEventListener('DOMContentLoaded', function() {
+            loadTeamData();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация команды — Esports Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --emerald: #34d399; --tiffany: #2dd4bf; --tiffany-light: #5eead4;
+            --bg-dark: #050a08; --bg-mid: #0a1a14; --bg-tiffany: #081818;
+            --text-primary: #f0fdf4; --text-secondary: #6b9b87;
+            --glass-bg: rgba(12, 40, 30, 0.35); --glass-bg-hover: rgba(16, 55, 40, 0.45);
+            --glass-border: rgba(52, 211, 153, 0.12); --glass-border-hover: rgba(52, 211, 153, 0.3);
+            --accent-gradient: linear-gradient(135deg, var(--emerald) 0%, var(--tiffany) 100%);
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: linear-gradient(170deg, var(--bg-dark), var(--bg-mid) 50%, var(--bg-tiffany)); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+        header { background: rgba(5,10,8,0.6); backdrop-filter: saturate(200%) blur(30px); -webkit-backdrop-filter: saturate(200%) blur(30px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        nav { max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 52px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 21px; font-weight: 600; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--emerald); }
+        .profile-link, .logout-link { display: none; }
+        .nav-links .btn-login { padding: 7px 20px; background: var(--glass-bg); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 980px; color: var(--text-primary) !important; font-weight: 500; transition: all 0.35s cubic-bezier(0.28,0.11,0.32,1); box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); cursor: pointer; }
+        .nav-links .btn-login:hover { background: var(--tiffany); color: #050a08 !important; border-color: var(--tiffany); box-shadow: 0 0 24px rgba(45,212,191,0.35), inset 0 1px 0 rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 60px 24px 100px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--tiffany); text-decoration: none; font-size: 15px; margin-bottom: 40px; }
+        .back-link:hover { color: var(--tiffany-light); }
+        .back-link::before { content: '‹'; font-size: 20px; }
+        .glass { background: var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04); }
+        .page-header { text-align: center; margin-bottom: 48px; }
+        .page-eyebrow { font-size: 13px; color: var(--tiffany); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; margin-bottom: 12px; }
+        .page-header h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 12px; background: linear-gradient(180deg, #fff 20%, var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .page-header p { font-size: 17px; color: var(--text-secondary); }
+        .tournament-info { padding: 28px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .tournament-info h3 { font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+        .tournament-info p { color: var(--text-secondary); font-size: 14px; }
+        .slots-value { font-size: 28px; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-align: right; }
+        .slots-label { font-size: 12px; color: var(--text-secondary); text-align: right; }
+        .form-section { padding: 36px; margin-bottom: 20px; }
+        .form-section-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+        .player-count { font-size: 17px; color: var(--text-secondary); font-weight: 400; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 13px; font-weight: 500; }
+        .form-group input, .form-group select { width: 100%; padding: 14px 16px; background: rgba(52,211,153,0.05); border: 1px solid var(--glass-border); border-radius: 14px; color: var(--text-primary); font-size: 15px; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--emerald); box-shadow: 0 0 0 3px rgba(52,211,153,0.1); }
+        .player-card { background: rgba(52,211,153,0.04); border: 1px solid var(--glass-border); border-radius: 18px; padding: 24px; margin-bottom: 16px; position: relative; }
+        .player-card.reserve { border-color: rgba(255, 165, 0, 0.2); background: rgba(255, 165, 0, 0.03); }
+        .player-card.reserve .player-type { color: #ffa500; }
+        .player-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .player-title { display: flex; align-items: center; gap: 12px; }
+        .player-title h4 { font-size: 17px; font-weight: 600; }
+        .player-type { font-size: 12px; color: var(--emerald); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+        .player-controls { display: flex; gap: 12px; align-items: center; }
+        .captain-toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); cursor: pointer; }
+        .captain-toggle input { width: 18px; height: 18px; accent-color: var(--emerald); cursor: pointer; }
+        .captain-toggle.disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-remove { background: transparent; border: 1px solid rgba(255,69,58,0.3); color: #ff453a; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .btn-remove:hover { background: rgba(255,69,58,0.1); border-color: #ff453a; }
+        .btn-add { width: 100%; padding: 14px; background: transparent; color: var(--tiffany); border: 1px dashed var(--glass-border); border-radius: 14px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: all 0.3s; margin-top: 8px; }
+        .btn-add:hover { border-color: var(--tiffany); background: rgba(45,212,191,0.06); }
+        .btn-add:disabled { opacity: 0.3; cursor: not-allowed; }
+        .form-note { color: var(--text-secondary); font-size: 13px; text-align: center; margin-bottom: 24px; line-height: 1.6; }
+        .btn-primary { width: 100%; padding: 16px; background: var(--accent-gradient); color: #050a08; border: none; border-radius: 14px; font-size: 17px; font-weight: 600; cursor: pointer; font-family: inherit; transition: box-shadow 0.3s; }
+        .btn-primary:hover { box-shadow: 0 4px 32px rgba(52,211,153,0.3); }
+        footer { background: var(--bg-dark); padding: 40px 24px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--glass-border); }
+        @media (max-width: 834px) { .page-header h1 { font-size: 32px; } .form-row { grid-template-columns: 1fr; } .tournament-info { flex-direction: column; text-align: center; gap: 16px; } .player-header { flex-direction: column; align-items: flex-start; gap: 12px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Esports</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="tournaments.html">Турниры</a></li>
+                <li><a href="teams.html">Статистика</a></li>
+                <li class="profile-link"><a href="profile.html">Профиль</a></li>
+                <li class="login-link"><a href="login.html" class="btn-login">Вход</a></li>
+                <li class="logout-link"><a href="#" class="btn-login" onclick="logout(); return false;">Выйти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <a href="tournament.html" class="back-link">К турниру</a>
+        <div class="page-header">
+            <p class="page-eyebrow">Регистрация</p>
+            <h1>Заявите команду.</h1>
+            <p>Заполните информацию о команде и игроках</p>
+        </div>
+        <div class="tournament-info glass">
+            <div><h3>Dota 2 Pro League</h3><p>15 октября 2026 · Double Elimination</p></div>
+            <div><div class="slots-value">4 / 16</div><div class="slots-label">свободных слотов</div></div>
+        </div>
+        <form id="registerTeamForm">
+            <div class="form-section glass">
+                <h2 class="form-section-title">Информация о команде</h2>
+                <div class="form-row">
+                    <div class="form-group"><label>Название команды *</label><input type="text" required></div>
+                    <div class="form-group"><label>Тег (3-5 символов) *</label><input type="text" maxlength="5" required></div>
+                </div>
+            </div>
+            <div class="form-section glass">
+                <h2 class="form-section-title">Состав команды <span class="player-count" id="playerCount">1 / 7</span></h2>
+                <div id="playersContainer">
+                    <div class="player-card" data-player-id="1">
+                        <div class="player-header">
+                            <div class="player-title"><h4>Игрок 1</h4><span class="player-type">Основной</span></div>
+                            <div class="player-controls"><label class="captain-toggle disabled"><input type="checkbox" checked disabled>Капитан</label></div>
+                        </div>
+                        <div class="form-row"><div class="form-group"><label>ФИО *</label><input type="text" required></div><div class="form-group"><label>Город *</label><input type="text" required></div></div>
+                        <div class="form-row"><div class="form-group"><label>Почта *</label><input type="email" required></div><div class="form-group"><label>Телефон *</label><input type="tel" required></div></div>
+                        <div class="form-row"><div class="form-group"><label>Ссылка на Steam *</label><input type="url" required></div><div class="form-group"><label>Часы в игре *</label><input type="number" required></div></div>
+                        <div class="form-group"><label>ММР *</label><input type="number" required></div>
+                    </div>
+                </div>
+                <button type="button" class="btn-add" id="addPlayerBtn">+ Добавить игрока</button>
+            </div>
+            <p class="form-note">Нажимая кнопку, вы соглашаетесь с правилами турнира.</p>
+            <button type="submit" class="btn-primary">Зарегистрировать команду</button>
+        </form>
+    </div>
+
+    <footer><p>© 2026 Esports Platform. Все права защищены.</p></footer>
+
+    <script>
+        let playerCount = 1;
+        const maxPlayers = 7;
+        const mainPlayers = 5;
+        const playersContainer = document.getElementById('playersContainer');
+        const addPlayerBtn = document.getElementById('addPlayerBtn');
+        const playerCountDisplay = document.getElementById('playerCount');
+
+        function updatePlayerCount() {
+            playerCountDisplay.textContent = `${playerCount} / ${maxPlayers}`;
+            if (playerCount >= maxPlayers) { addPlayerBtn.disabled = true; addPlayerBtn.textContent = 'Максимум игроков добавлено'; }
+            else { addPlayerBtn.disabled = false; addPlayerBtn.textContent = '+ Добавить игрока'; }
+        }
+
+        function createPlayerCard(id) {
+            const isReserve = id > mainPlayers;
+            const isFirst = id === 1;
+            const card = document.createElement('div');
+            card.className = `player-card${isReserve ? ' reserve' : ''}`;
+            card.dataset.playerId = id;
+            card.innerHTML = `
+                <div class="player-header">
+                    <div class="player-title"><h4>Игрок ${id}</h4><span class="player-type">${isReserve ? 'Запасной' : 'Основной'}</span></div>
+                    <div class="player-controls">
+                        ${!isFirst ? `<label class="captain-toggle"><input type="checkbox" class="captain-checkbox">Капитан</label><button type="button" class="btn-remove">Удалить</button>` : `<label class="captain-toggle disabled"><input type="checkbox" checked disabled>Капитан</label>`}
+                    </div>
+                </div>
+                <div class="form-row"><div class="form-group"><label>ФИО *</label><input type="text" required></div><div class="form-group"><label>Город *</label><input type="text" required></div></div>
+                <div class="form-row"><div class="form-group"><label>Почта *</label><input type="email" required></div><div class="form-group"><label>Телефон *</label><input type="tel" required></div></div>
+                <div class="form-row"><div class="form-group"><label>Ссылка на Steam *</label><input type="url" required></div><div class="form-group"><label>Часы в игре *</label><input type="number" required></div></div>
+                <div class="form-group"><label>ММР *</label><input type="number" required></div>
+            `;
+            const removeBtn = card.querySelector('.btn-remove');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', () => {
+                    card.remove(); playerCount--; updatePlayerCount(); renumberPlayers();
+                });
+            }
+            const captainCheckbox = card.querySelector('.captain-checkbox');
+            if (captainCheckbox) {
+                captainCheckbox.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        document.querySelectorAll('.captain-checkbox').forEach(cb => { if (cb !== e.target) cb.checked = false; });
+                    }
+                });
+            }
+            return card;
+        }
+
+        function renumberPlayers() {
+            const cards = playersContainer.querySelectorAll('.player-card');
+            cards.forEach((card, index) => {
+                const id = index + 1;
+                card.dataset.playerId = id;
+                card.querySelector('h4').textContent = `Игрок ${id}`;
+                const isReserve = id > mainPlayers;
+                card.querySelector('.player-type').textContent = isReserve ? 'Запасной' : 'Основной';
+                if (isReserve) card.classList.add('reserve');
+                else card.classList.remove('reserve');
+            });
+        }
+
+        addPlayerBtn.addEventListener('click', () => {
+            if (playerCount < maxPlayers) {
+                playerCount++;
+                playersContainer.appendChild(createPlayerCard(playerCount));
+                updatePlayerCount();
+            }
+        });
+
+        updatePlayerCount();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

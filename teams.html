@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика — Esports Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --emerald: #34d399; --tiffany: #2dd4bf; --tiffany-light: #5eead4;
+            --bg-dark: #050a08; --bg-mid: #0a1a14; --bg-tiffany: #081818;
+            --text-primary: #f0fdf4; --text-secondary: #6b9b87;
+            --glass-bg: rgba(12, 40, 30, 0.35); --glass-bg-hover: rgba(16, 55, 40, 0.45);
+            --glass-border: rgba(52, 211, 153, 0.12); --glass-border-hover: rgba(52, 211, 153, 0.3);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+            --accent-gradient: linear-gradient(135deg, var(--emerald) 0%, var(--tiffany) 100%);
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: linear-gradient(170deg, var(--bg-dark), var(--bg-mid) 50%, var(--bg-tiffany)); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+        header { background: rgba(5,10,8,0.6); backdrop-filter: saturate(200%) blur(30px); -webkit-backdrop-filter: saturate(200%) blur(30px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        nav { max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 52px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 21px; font-weight: 600; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+        .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--emerald); }
+        .profile-link, .logout-link { display: none; }
+        .nav-links .btn-login { padding: 7px 20px; background: var(--glass-bg); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 980px; color: var(--text-primary) !important; font-weight: 500; transition: all 0.35s cubic-bezier(0.28,0.11,0.32,1); box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); cursor: pointer; }
+        .nav-links .btn-login:hover { background: var(--tiffany); color: #050a08 !important; border-color: var(--tiffany); box-shadow: 0 0 24px rgba(45,212,191,0.35), inset 0 1px 0 rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+        .container { max-width: 1080px; margin: 0 auto; padding: 80px 24px 100px; }
+
+        .page-header { text-align: center; margin-bottom: 48px; }
+        .page-eyebrow { font-size: 15px; color: var(--tiffany); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 10px; }
+        .page-header h1 { font-size: 56px; font-weight: 700; letter-spacing: -0.04em; background: linear-gradient(180deg, #fff 20%, var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+        .page-header p { font-size: 19px; color: var(--text-secondary); }
+
+        .main-tabs { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; }
+        .main-tab { padding: 12px 32px; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 980px; cursor: pointer; color: var(--text-secondary); font-size: 15px; font-weight: 500; font-family: inherit; transition: all 0.3s; }
+        .main-tab:hover { border-color: var(--glass-border-hover); color: var(--text-primary); }
+        .main-tab.active { background: var(--accent-gradient); color: #050a08; border-color: transparent; font-weight: 600; }
+
+        .discipline-filters { display: flex; gap: 8px; margin-bottom: 32px; justify-content: center; flex-wrap: wrap; }
+        .discipline-btn { padding: 8px 20px; background: transparent; border: 1px solid var(--glass-border); border-radius: 980px; cursor: pointer; color: var(--text-secondary); font-size: 13px; font-weight: 500; font-family: inherit; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+        .discipline-btn:hover { border-color: var(--glass-border-hover); color: var(--text-primary); }
+        .discipline-btn.active { background: rgba(52,211,153,0.12); color: var(--emerald); border-color: rgba(52,211,153,0.3); font-weight: 600; }
+        .discipline-btn .game-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .discipline-btn .game-dot.all { background: var(--accent-gradient); }
+        .discipline-btn .game-dot.dota2 { background: #e44d26; }
+        .discipline-btn .game-dot.cs2 { background: #f5a623; }
+        .discipline-btn .game-dot.valorant { background: #ff4655; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .results-count { text-align: center; margin-bottom: 24px; font-size: 14px; color: var(--text-secondary); }
+        .results-count strong { color: var(--emerald); font-weight: 600; }
+
+        /* ── Карточки команд ── */
+        .teams-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .team-card { padding: 28px; text-decoration: none; color: inherit; display: flex; flex-direction: column; min-height: 240px; }
+        .team-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .team-logo { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #050a08; flex-shrink: 0; }
+        .team-info { flex: 1; min-width: 0; }
+        .team-info h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+        .team-meta { color: var(--text-secondary); font-size: 13px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .team-game-badge { display: inline-block; padding: 2px 8px; background: rgba(52,211,153,0.1); color: var(--tiffany); border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .team-position { display: inline-block; padding: 2px 8px; background: rgba(45,212,191,0.15); color: var(--tiffany-light); border-radius: 6px; font-size: 11px; font-weight: 600; }
+
+        /* ── Общая статистика ── */
+        .team-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding-top: 18px; border-top: 1px solid var(--glass-border); margin-top: auto; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 22px; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+        .stat-value.positive { color: var(--emerald); background: none; -webkit-text-fill-color: var(--emerald); }
+        .stat-value.negative { color: #ff453a; background: none; -webkit-text-fill-color: #ff453a; }
+        .stat-label { color: var(--text-secondary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+        .stat-sublabel { color: var(--text-secondary); font-size: 10px; margin-top: 2px; opacity: 0.7; }
+
+        .glass { background: var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: var(--glass-shadow); transition: transform 0.4s cubic-bezier(0.28,0.11,0.32,1), border-color 0.3s, background 0.3s; }
+        .glass:hover { border-color: var(--glass-border-hover); background: var(--glass-bg-hover); transform: translateY(-4px); }
+
+        .empty-section { text-align: center; padding: 80px 24px; }
+        .empty-icon { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(52, 211, 153, 0.1) 0%, rgba(45, 212, 191, 0.1) 100%); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; }
+        .empty-section h3 { font-size: 22px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+        .empty-section p { color: var(--text-secondary); font-size: 15px; max-width: 400px; margin: 0 auto; line-height: 1.5; }
+
+        .loading-state { text-align: center; padding: 60px 24px; color: var(--text-secondary); font-size: 15px; grid-column: 1 / -1; }
+
+        footer { background: var(--bg-dark); padding: 40px 24px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--glass-border); }
+
+        @media (max-width: 834px) {
+            .page-header h1 { font-size: 40px; }
+            .teams-grid { grid-template-columns: 1fr; }
+            .team-card { min-height: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Esports</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="tournaments.html">Турниры</a></li>
+                <li><a href="teams.html">Статистика</a></li>
+                <li class="profile-link"><a href="profile.html">Профиль</a></li>
+                <li class="login-link"><a href="login.html" class="btn-login">Вход</a></li>
+                <li class="logout-link"><a href="#" class="btn-login" onclick="logout(); return false;">Выйти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <p class="page-eyebrow">Статистика</p>
+            <h1>Команды и игроки.</h1>
+            <p>Подробная статистика и рейтинги.</p>
+        </div>
+
+        <div class="main-tabs">
+            <div class="main-tab active" data-tab="teams">Команды</div>
+            <div class="main-tab" data-tab="players">Игроки</div>
+        </div>
+
+        <div class="discipline-filters">
+            <button class="discipline-btn active" data-game="all"><span class="game-dot all"></span>Все</button>
+            <button class="discipline-btn" data-game="dota2"><span class="game-dot dota2"></span>Dota 2</button>
+            <button class="discipline-btn" data-game="cs2"><span class="game-dot cs2"></span>CS2</button>
+            <button class="discipline-btn" data-game="valorant"><span class="game-dot valorant"></span>Valorant</button>
+        </div>
+
+        <div class="tab-content active" id="content-teams">
+            <div class="results-count" id="teamsCount">Загрузка...</div>
+            <div class="teams-grid" id="teamsGrid">
+                <div class="loading-state glass" style="padding: 60px;">Загрузка данных...</div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="content-players">
+            <div class="empty-section">
+                <div class="empty-icon">👤</div>
+                <h3>Раздел в разработке</h3>
+                <p>Статистика игроков по дисциплинам скоро будет доступна.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>© 2026 Esports Platform. Все права защищены.</p></footer>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // ИСТОЧНИК ДАННЫХ
+        // ═══════════════════════════════════════════════════════════════
+        const TOURNAMENT_FILE = 'data/tournament-dota2-2026.json';
+
+        let currentTab = 'teams';
+        let currentGame = 'all';
+        let teamsData = [];
+        let allPlayoffMatches = [];
+
+        // ═══════════════════════════════════════════════════════════════
+        // СБОР ВСЕХ МАТЧЕЙ ПЛЕЙ-ОФФ
+        // ═══════════════════════════════════════════════════════════════
+        function collectAllPlayoffMatches(playoffs) {
+            const matches = [];
+            const ub = playoffs.upperBracket;
+            if (ub.playIn) ub.playIn.forEach(m => matches.push(m));
+            if (ub.roundOf16) ub.roundOf16.forEach(m => matches.push(m));
+            if (ub.semifinals) ub.semifinals.forEach(m => matches.push(m));
+            if (ub.final) matches.push(ub.final);
+
+            const lb = playoffs.lowerBracket;
+            if (lb.round1) lb.round1.forEach(m => matches.push(m));
+            if (lb.roundOf16) lb.roundOf16.forEach(m => matches.push(m));
+            if (lb.quarterfinals) lb.quarterfinals.forEach(m => matches.push(m));
+            if (lb.semifinals) lb.semifinals.forEach(m => matches.push(m));
+            if (lb.final) matches.push(lb.final);
+
+            if (playoffs.grandFinal) matches.push(playoffs.grandFinal);
+
+            return matches;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // РАСЧЁТ ОБЩЕЙ СТАТИСТИКИ (группа + плей-офф)
+        // ═══════════════════════════════════════════════════════════════
+        function calculateTotalStats(team) {
+            const gs = team.groupStage;
+            const gsWins = gs.wins;
+            const gsLosses = gs.losses;
+            const gsMapDiff = parseInt(gs.mapDifference) || 0;
+
+            // Плей-офф
+            const teamMatches = allPlayoffMatches.filter(m => m.team1 === team.id || m.team2 === team.id);
+            let poWins = 0;
+            let poLosses = 0;
+            let poMapDiff = 0;
+
+            teamMatches.forEach(m => {
+                const isTeam1 = m.team1 === team.id;
+                const myScore = isTeam1 ? m.score1 : m.score2;
+                const oppScore = isTeam1 ? m.score2 : m.score1;
+
+                if (myScore > oppScore) poWins++;
+                else if (myScore < oppScore) poLosses++;
+
+                poMapDiff += (myScore - oppScore);
+            });
+
+            const totalWins = gsWins + poWins;
+            const totalLosses = gsLosses + poLosses;
+            const totalGames = totalWins + totalLosses;
+            const totalWinrate = totalGames > 0 ? Math.round((totalWins / totalGames) * 100) : 0;
+            const totalMapDiff = gsMapDiff + poMapDiff;
+
+            return {
+                totalWins,
+                totalLosses,
+                totalGames,
+                totalWinrate,
+                totalMapDiff,
+                poWins,
+                poLosses,
+                poMatchesTotal: teamMatches.length
+            };
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // ЗАГРУЗКА ДАННЫХ
+        // ═══════════════════════════════════════════════════════════════
+        async function loadTeamsFromTournament() {
+            const grid = document.getElementById('teamsGrid');
+
+            try {
+                const response = await fetch(TOURNAMENT_FILE);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+
+                // Сохраняем все матчи плей-офф
+                allPlayoffMatches = collectAllPlayoffMatches(data.playoffs);
+
+                // Обогащаем команды данными
+                teamsData = data.teams.map(team => {
+                    const totalStats = calculateTotalStats(team);
+                    return {
+                        ...team,
+                        game: data.tournament.game.toLowerCase().replace(/\s+/g, ''),
+                        gameDisplayName: data.tournament.game,
+                        totalStats: totalStats
+                    };
+                });
+
+                teamsData.sort((a, b) => a.groupStage.position - b.groupStage.position);
+
+                renderTeams();
+
+            } catch (error) {
+                console.error('Ошибка загрузки данных:', error);
+                grid.innerHTML = `
+                    <div class="loading-state glass" style="padding: 60px;">
+                        <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;">⚠️</div>
+                        <div>Не удалось загрузить данные</div>
+                        <div style="color: var(--text-secondary); font-size: 13px; margin-top: 8px;">${error.message}</div>
+                    </div>
+                `;
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // РЕНДЕР КАРТОЧКИ КОМАНДЫ
+        // ═══════════════════════════════════════════════════════════════
+        function renderTeamCard(team) {
+            const gs = team.groupStage;
+            const ts = team.totalStats;
+
+            // Цвет для разницы карт
+            let mapDiffClass = '';
+            let mapDiffText = '';
+            if (ts.totalMapDiff > 0) {
+                mapDiffClass = 'positive';
+                mapDiffText = `+${ts.totalMapDiff}`;
+            } else if (ts.totalMapDiff < 0) {
+                mapDiffClass = 'negative';
+                mapDiffText = `${ts.totalMapDiff}`;
+            } else {
+                mapDiffText = '0';
+            }
+
+            return `
+                <a href="team.html?team=${team.id}" class="team-card glass" data-game="${team.game}">
+                    <div class="team-header">
+                        <div class="team-logo">${team.logo}</div>
+                        <div class="team-info">
+                            <h3>${team.name}</h3>
+                            <p class="team-meta">
+                                <span class="team-game-badge">${team.gameDisplayName}</span>
+                                <span>${team.region}</span>
+                                <span class="team-position">#${gs.position} в группе</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="team-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${ts.totalWins}</div>
+                            <div class="stat-label">Побед</div>
+                            <div class="stat-sublabel">${ts.poWins} в плей-офф</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${ts.totalWinrate}%</div>
+                            <div class="stat-label">Винрейт</div>
+                            <div class="stat-sublabel">${ts.totalGames} матчей</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value ${mapDiffClass}">${mapDiffText}</div>
+                            <div class="stat-label">Разница карт</div>
+                            <div class="stat-sublabel">всего за турнир</div>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // РЕНДЕР СПИСКА КОМАНД
+        // ═══════════════════════════════════════════════════════════════
+        function renderTeams() {
+            const grid = document.getElementById('teamsGrid');
+            const countEl = document.getElementById('teamsCount');
+
+            const filteredTeams = teamsData.filter(team =>
+                currentGame === 'all' || team.game === currentGame
+            );
+
+            const gameNames = {
+                'all': '',
+                'dota2': ' Dota 2',
+                'cs2': ' CS2',
+                'valorant': ' Valorant'
+            };
+            countEl.innerHTML = `Найдено команд${gameNames[currentGame]}: <strong>${filteredTeams.length}</strong>`;
+
+            if (filteredTeams.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-section" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">🔍</div>
+                        <h3>Команд не найдено</h3>
+                        <p>В данной дисциплине пока нет данных о командах.</p>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = filteredTeams.map(team => renderTeamCard(team)).join('');
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // ОБРАБОТЧИКИ СОБЫТИЙ
+        // ═══════════════════════════════════════════════════════════════
+        document.querySelectorAll('.main-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentTab = tab.dataset.tab;
+
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(`content-${currentTab}`).classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.discipline-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.discipline-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentGame = btn.dataset.game;
+
+                if (currentTab === 'teams') {
+                    renderTeams();
+                }
+            });
+        });
+document.addEventListener('DOMContentLoaded', function() {
+            loadTeamsFromTournament();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

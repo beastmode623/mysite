@@ -1,0 +1,1150 @@
+{
+  "tournament": {
+    "id": "dota2-winter-2026",
+    "name": "Dota 2 Ingogames 2026. Season 1",
+    "game": "Dota 2",
+    "description": "Зимний чемпионат по Dota 2",
+    "startDate": "2026-01-27",
+    "endDate": "2026-04-19",
+    "format": "Group Stage + Double Elimination Playoffs",
+    "status": "finished",
+    "maxTeams": 12,
+    "winner": "team-1",
+    "runnerUp": "team-8"
+  },
+
+  "teams": [
+    {
+      "id": "team-1",
+      "name": "Трон Застрахован",
+      "tag": "TAG1",
+      "logo": "T1",
+      "region": "Россия",
+      "groupStage": {
+        "position": 1,
+        "wins": 4,
+        "losses": 0,
+        "points": 12,
+        "mapDifference": "+4"
+      },
+      "players": [
+        {
+          "id": "player-1-1",
+          "name": "dns",
+          "initials": "NI",
+          "role": "Carry",
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-1-2",
+          "name": "raketa-",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-1-3",
+          "name": "vanchecson",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-1-4",
+          "name": "So'GBo",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-1-5",
+          "name": "Danvis",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-2",
+      "name": "Executive Force",
+      "tag": "TAG2",
+      "logo": "T2",
+      "region": "Россия",
+      "groupStage": {
+        "position": 2,
+        "wins": 4,
+        "losses": 0,
+        "points": 12,
+        "mapDifference": "+4"
+      },
+      "players": [
+        {
+          "id": "player-2-1",
+          "name": "Darkness",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-2-2",
+          "name": "Бондарь Илья",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-2-3",
+          "name": "Андреев Владимир",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-2-4",
+          "name": "GABR",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-2-5",
+          "name": "Вагин Аскендеров",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-3",
+      "name": "Punishers",
+      "tag": "TAG3",
+      "logo": "T3",
+      "region": "Россия",
+      "groupStage": {
+        "position": 3,
+        "wins": 3,
+        "losses": 1,
+        "points": 9,
+        "mapDifference": "+2"
+      },
+      "players": [
+                {
+          "id": "player-3-1",
+          "name": "sayonara",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-3-2",
+          "name": "Даниил колбасенко",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-3-3",
+          "name": "d133ct",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-3-4",
+          "name": "Черепаха Хлов",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-3-5",
+          "name": "Angel",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-4",
+      "name": "Kiss Meow",
+      "tag": "TAG4",
+      "logo": "T4",
+      "region": "Россия",
+      "groupStage": {
+        "position": 4,
+        "wins": 3,
+        "losses": 1,
+        "points": 9,
+        "mapDifference": "+2"
+      },
+      "players": [
+                {
+          "id": "player-4-1",
+          "name": "Thunder",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-4-2",
+          "name": "hesoyam~",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-4-3",
+          "name": "Overr1de",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-4-4",
+          "name": "1417",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-4-5",
+          "name": "EasyMoney",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-5",
+      "name": "Asphalt8",
+      "tag": "TAG5",
+      "logo": "T5",
+      "region": "Россия",
+      "groupStage": {
+        "position": 5,
+        "wins": 3,
+        "losses": 1,
+        "points": 9,
+        "mapDifference": "+2"
+      },
+      "players": [
+                {
+          "id": "player-5-1",
+          "name": "Александр",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-5-2",
+          "name": "ケック",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-5-3",
+          "name": "anung un rama",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-5-4",
+          "name": "GInOff",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-5-5",
+          "name": "Shipa",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-6",
+      "name": "No Risk",
+      "tag": "TAG6",
+      "logo": "T6",
+      "region": "Россия",
+      "groupStage": {
+        "position": 6,
+        "wins": 2,
+        "losses": 2,
+        "points": 6,
+        "mapDifference": "0"
+      },
+      "players": [
+                {
+          "id": "player-6-1",
+          "name": "natlexx",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-6-2",
+          "name": "Felix",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-6-3",
+          "name": "Diana 17см",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-6-4",
+          "name": "Crazy_Toater",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-6-5",
+          "name": "Amahasla",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-7",
+      "name": "GLOW",
+      "tag": "TAG7",
+      "logo": "T7",
+      "region": "Россия",
+      "groupStage": {
+        "position": 7,
+        "wins": 2,
+        "losses": 2,
+        "points": 6,
+        "mapDifference": "0"
+      },
+      "players": [
+                {
+          "id": "player-7-1",
+          "name": "mydachyo[*‿*]",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-7-2",
+          "name": "Gvadelupa",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-7-3",
+          "name": "naxuinamotano",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-7-4",
+          "name": "arisha",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-7-5",
+          "name": "Na'Srimple'Vi",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-8",
+      "name": "Шаманчик Связывай",
+      "tag": "TAG8",
+      "logo": "T8",
+      "region": "Россия",
+      "groupStage": {
+        "position": 8,
+        "wins": 2,
+        "losses": 2,
+        "points": 6,
+        "mapDifference": "0"
+      },
+      "players": [
+                {
+          "id": "player-8-1",
+          "name": "ОлегаFriend",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-8-2",
+          "name": "кукуруза",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-8-3",
+          "name": "osago enjoyer",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-8-4",
+          "name": "Gandalf the Grey",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-8-5",
+          "name": "LIMP.BRT",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-9",
+      "name": "Arcane Actuaries",
+      "tag": "TAG9",
+      "logo": "T9",
+      "region": "Россия",
+      "groupStage": {
+        "position": 9,
+        "wins": 1,
+        "losses": 3,
+        "points": 3,
+        "mapDifference": "-2"
+      },
+      "players": [
+                {
+          "id": "player-9-1",
+          "name": "zybeck",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-9-2",
+          "name": "GreeNJesus",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-9-3",
+          "name": "Kantari",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-9-4",
+          "name": "ウエコムンド",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-9-5",
+          "name": "Fantomas",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-10",
+      "name": "Синие Варды",
+      "tag": "TA10",
+      "logo": "T10",
+      "region": "Россия",
+      "groupStage": {
+        "position": 10,
+        "wins": 0,
+        "losses": 4,
+        "points": 0,
+        "mapDifference": "-4"
+      },
+      "players": [
+                {
+          "id": "player-10-1",
+          "name": "Vinch",
+          "initials": "NI",
+          "role": "Carry",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-10-2",
+          "name": "Роман",
+          "initials": "NI",
+          "role": "Mid",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-10-3",
+          "name": "sauron",
+          "initials": "NI",
+          "role": "Offlane",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-10-4",
+          "name": "TVAR",
+          "initials": "NI",
+          "role": "Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        },
+        {
+          "id": "player-10-5",
+          "name": "Sirota_69",
+          "initials": "NI",
+          "role": "Hard Support",
+          "heroPool": [],
+          "stats": {
+            "kills": 0,
+            "deaths": 0,
+            "assists": 0,
+            "gpm": 0,
+            "xpm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "team-11",
+      "name": "Team 4",
+      "tag": "TA11",
+      "logo": "T11",
+      "region": "Россия",
+      "groupStage": {
+        "position": 11,
+        "wins": 0,
+        "losses": 4,
+        "points": 0,
+        "mapDifference": "-4"
+      },
+      "players": []
+    },
+    {
+      "id": "team-12",
+      "name": "Team 9",
+      "tag": "TA12",
+      "logo": "T12",
+      "region": "Россия",
+      "groupStage": {
+        "position": 12,
+        "wins": 0,
+        "losses": 4,
+        "points": 0,
+        "mapDifference": "-4"
+      },
+      "players": []
+    }
+  ],
+
+  "playoffs": {
+    "upperBracket": {
+      "playIn": [
+        {
+          "id": "ub-playin-1",
+          "round": "Play-In",
+          "team1": "team-5",
+          "team2": "team-12",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-5",
+          "date": "2026-02-24"
+        },
+        {
+          "id": "ub-playin-2",
+          "round": "Play-In",
+          "team1": "team-6",
+          "team2": "team-11",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-6",
+          "date": "2026-02-24"
+        },
+        {
+          "id": "ub-playin-3",
+          "round": "Play-In",
+          "team1": "team-7",
+          "team2": "team-10",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-10",
+          "date": "2026-02-24"
+        },
+        {
+          "id": "ub-playin-4",
+          "round": "Play-In",
+          "team1": "team-8",
+          "team2": "team-9",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-8",
+          "date": "2026-02-28"
+        }
+      ],
+      "roundOf16": [
+        {
+          "id": "ub-r16-1",
+          "round": "1/8 финала",
+          "team1": "team-1",
+          "team2": "team-5",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-1",
+          "date": "2026-03-04"
+        },
+        {
+          "id": "ub-r16-2",
+          "round": "1/8 финала",
+          "team1": "team-2",
+          "team2": "team-6",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-6",
+          "date": "2026-03-07"
+        },
+        {
+          "id": "ub-r16-3",
+          "round": "1/8 финала",
+          "team1": "team-3",
+          "team2": "team-10",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-3",
+          "date": "2026-03-07"
+        },
+        {
+          "id": "ub-r16-4",
+          "round": "1/8 финала",
+          "team1": "team-4",
+          "team2": "team-8",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-8",
+          "date": "2026-03-09"
+        }
+      ],
+      "semifinals": [
+        {
+          "id": "ub-sf-1",
+          "round": "1/2 финала",
+          "team1": "team-1",
+          "team2": "team-6",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-1",
+          "date": "2026-03-19"
+        },
+        {
+          "id": "ub-sf-2",
+          "round": "1/2 финала",
+          "team1": "team-3",
+          "team2": "team-8",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-8",
+          "date": "2026-03-27"
+        }
+      ],
+      "final": {
+        "id": "ub-final",
+        "round": "Финал UB",
+        "team1": "team-1",
+        "team2": "team-8",
+        "score1": 2,
+        "score2": 0,
+        "winner": "team-1",
+        "date": "2026-04-05"
+      }
+    },
+
+    "lowerBracket": {
+      "round1": [
+        {
+          "id": "lb-r1-1",
+          "round": "Раунд 1",
+          "team1": "team-10",
+          "team2": "team-12",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-10",
+          "date": "2026-03-10"
+        },
+        {
+          "id": "lb-r1-2",
+          "round": "Раунд 1",
+          "team1": "team-4",
+          "team2": "team-11",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-4",
+          "date": "2026-03-10"
+        },
+        {
+          "id": "lb-r1-3",
+          "round": "Раунд 1",
+          "team1": "team-5",
+          "team2": "team-7",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-5",
+          "date": "2026-03-11"
+        },
+        {
+          "id": "lb-r1-4",
+          "round": "Раунд 1",
+          "team1": "team-2",
+          "team2": "team-9",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-9",
+          "date": "2026-03-14"
+        }
+      ],
+      "roundOf16": [
+        {
+          "id": "lb-r16-1",
+          "round": "1/8 финала",
+          "team1": "team-10",
+          "team2": "team-4",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-4",
+          "date": "2026-03-15"
+        },
+        {
+          "id": "lb-r16-2",
+          "round": "1/8 финала",
+          "team1": "team-5",
+          "team2": "team-9",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-5",
+          "date": "2026-03-22"
+        }
+      ],
+      "quarterfinals": [
+        {
+          "id": "lb-qf-1",
+          "round": "1/4 финала",
+          "team1": "team-6",
+          "team2": "team-4",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-4",
+          "date": "2026-04-06"
+        },
+        {
+          "id": "lb-qf-2",
+          "round": "1/4 финала",
+          "team1": "team-3",
+          "team2": "team-5",
+          "score1": 1,
+          "score2": 0,
+          "winner": "team-3",
+          "date": "2026-04-05"
+        }
+      ],
+      "semifinals": [
+        {
+          "id": "lb-sf-1",
+          "round": "1/2 финала",
+          "team1": "team-4",
+          "team2": "team-3",
+          "score1": 0,
+          "score2": 1,
+          "winner": "team-3",
+          "date": "2026-04-10"
+        }
+      ],
+      "final": {
+        "id": "lb-final",
+        "round": "Финал LB",
+        "team1": "team-8",
+        "team2": "team-3",
+        "score1": 2,
+        "score2": 0,
+        "winner": "team-8",
+        "date": "2026-04-11"
+      }
+    },
+
+    "grandFinal": {
+      "id": "grand-final",
+      "round": "Гранд-финал",
+      "team1": "team-1",
+      "team2": "team-8",
+      "score1": 3,
+      "score2": 0,
+      "winner": "team-1",
+      "date": "2026-04-18"
+    }
+  }
+}
