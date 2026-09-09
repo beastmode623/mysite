@@ -1,0 +1,9 @@
+-- Applied to production 2026-09-09.
+-- Security hardening: private helper search_path fixed; anon execution revoked from authenticated/admin RPCs.
+-- Public read-only RPCs intentionally remain anon-accessible.
+-- Added:
+-- public.get_public_tournament_teams(text): one-call approved teams + canonical roster bundle.
+-- public.validate_team_roster(text): captain/main/reserve/account integrity validator.
+-- public.admin_tournament_preflight(text): launch readiness check.
+-- public.admin_system_health(text): lightweight admin diagnostics.
+-- See Supabase migration prelaunch_security_bundle_and_preflight for canonical deployed definitions.
