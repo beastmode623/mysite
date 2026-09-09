@@ -1,0 +1,5 @@
+-- Applied to Supabase production on 2026-09-09.
+-- Prevents finished/cancelled tournaments from being reopened and blocks returning
+-- an already-started tournament to registration/preparation states.
+-- The production migration replaces public.admin_update_tournament with these guards
+-- while preserving its existing signature and validation rules.
