@@ -34,7 +34,7 @@
 <footer>© 2026 Esports Platform. Все права защищены.</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script><script src="app.js"></script>
 <script>
-function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]))}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function tournamentUrl(t){if(t.id==='dota2-winter-2026')return `tournament.html?id=${encodeURIComponent(t.id)}`;return t.status==='draft'?`tournament-draft.html?id=${encodeURIComponent(t.id)}`:`tournament-public.html?id=${encodeURIComponent(t.id)}`}
 function statusLabel(status){return ({draft:'Черновик',registration:'Регистрация',upcoming:'Скоро',ongoing:'Идёт',live:'Идёт',finished:'Завершён',cancelled:'Отменён'})[status]||status||''}
 document.addEventListener('DOMContentLoaded',async()=>{
