@@ -1,0 +1,4 @@
+-- Applied in Supabase as tournament_structure_admin_controls.
+-- Adds authenticated admin-only RPCs to update/delete tournament groups and remove a team from a group.
+-- Group deletion is blocked after group-stage matches become live or finished.
+-- Used by admin-structure.html together with the flexible tournament structure foundation.
