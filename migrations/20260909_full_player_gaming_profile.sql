@@ -1,0 +1,5 @@
+-- Applied to production 2026-09-09.
+-- Adds safe gaming profile fields: primary_game, game_nickname, game_role,
+-- gaming_experience_years and bio; server-side validation/update RPC;
+-- extends safe public player profile and directory RPCs.
+-- Canonical deployed migration: full_player_gaming_profile.
