@@ -1,0 +1,5 @@
+-- Applied in Supabase as migration: tournament_match_admin_management
+-- Adds authenticated admin-only admin_update_tournament_match(...) and admin_delete_tournament_match(uuid).
+-- Finished matches cannot have their participants/structure edited without a future explicit result-reset workflow.
+-- Live/finished matches cannot be deleted.
+-- Approved-team, BO and stage validation is performed server-side.
