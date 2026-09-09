@@ -24,10 +24,8 @@
         .profile-link, .logout-link { display: none; }
         .nav-links .btn-login { padding: 7px 20px; background: var(--glass-bg); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 980px; color: var(--text-primary) !important; font-weight: 500; transition: all 0.35s cubic-bezier(0.28,0.11,0.32,1); box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); cursor: pointer; }
         .nav-links .btn-login:hover { background: var(--tiffany); color: #050a08 !important; border-color: var(--tiffany); box-shadow: 0 0 24px rgba(45,212,191,0.35), inset 0 1px 0 rgba(255,255,255,0.2); transform: translateY(-1px); }
-
         .container { max-width: 1080px; margin: 0 auto; padding: 60px 24px 100px; }
-        .glass { background: var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04); transition: transform 0.4s cubic-bezier(0.28,0.11,0.32,1), border-color 0.3s; }
-        .glass:hover { border-color: var(--glass-border-hover); transform: translateY(-4px); }
+        .glass { background: var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04); }
         .profile-hero { text-align: center; padding: 60px 0 80px; border-bottom: 1px solid var(--glass-border); margin-bottom: 60px; }
         .profile-avatar { width: 120px; height: 120px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; color: #050a08; margin: 0 auto 24px; box-shadow: 0 0 60px rgba(52,211,153,0.2); }
         .profile-hero h1 { font-size: 48px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 8px; }
@@ -39,19 +37,10 @@
         .stat-label { color: var(--text-secondary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
         .section { margin-bottom: 60px; }
         .section-title { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 24px; }
-        .table-wrapper { overflow: hidden; border-radius: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 16px 20px; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; background: rgba(52,211,153,0.04); border-bottom: 1px solid var(--glass-border); }
-        td { padding: 16px 20px; font-size: 15px; border-bottom: 1px solid var(--glass-border); }
-        tr:last-child td { border-bottom: none; }
-        .place-badge { display: inline-block; padding: 4px 12px; border-radius: 980px; font-size: 12px; font-weight: 600; background: rgba(52,211,153,0.12); color: var(--emerald); }
-        .achievements-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .achievement-card { padding: 28px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; min-height: 160px; }
-        .achievement-icon { font-size: 32px; margin-bottom: 12px; }
-        .achievement-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-        .achievement-desc { color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin-top: auto; }
+        .empty-state { padding: 44px 28px; text-align: center; color: var(--text-secondary); line-height: 1.6; }
+        .empty-state strong { color: var(--text-primary); display: block; font-size: 18px; margin-bottom: 6px; }
         footer { background: var(--bg-dark); padding: 40px 24px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--glass-border); }
-        @media (max-width: 834px) { .profile-hero h1 { font-size: 32px; } .stats-grid { grid-template-columns: repeat(2, 1fr); } .achievements-grid { grid-template-columns: repeat(2, 1fr); } .achievement-card { min-height: auto; } }
+        @media (max-width: 834px) { .profile-hero h1 { font-size: 32px; } .stats-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -71,51 +60,39 @@
 
     <div class="container">
         <div class="profile-hero">
-            <div class="profile-avatar">A</div>
-            <h1>AlexPro</h1>
-            <p class="profile-handle">@alexpro · Зарегистрирован: Март 2025</p>
-            <span class="profile-team">Team Phoenix</span>
+            <div class="profile-avatar">P</div>
+            <h1>Player</h1>
+            <p class="profile-handle">Загрузка профиля...</p>
+            <span class="profile-team">Без команды</span>
         </div>
 
         <div class="stats-grid">
-            <div class="stat-card glass"><div class="stat-value">128</div><div class="stat-label">Побед</div></div>
-            <div class="stat-card glass"><div class="stat-value">61</div><div class="stat-label">Поражений</div></div>
-            <div class="stat-card glass"><div class="stat-value">68%</div><div class="stat-label">Винрейт</div></div>
-            <div class="stat-card glass"><div class="stat-value">47</div><div class="stat-label">Турниров</div></div>
-            <div class="stat-card glass"><div class="stat-value" style="font-size:22px">Diamond II</div><div class="stat-label">Ранг</div></div>
+            <div class="stat-card glass"><div class="stat-value">0</div><div class="stat-label">Побед</div></div>
+            <div class="stat-card glass"><div class="stat-value">0</div><div class="stat-label">Поражений</div></div>
+            <div class="stat-card glass"><div class="stat-value">—</div><div class="stat-label">Винрейт</div></div>
+            <div class="stat-card glass"><div class="stat-value">0</div><div class="stat-label">Турниров</div></div>
+            <div class="stat-card glass"><div class="stat-value" style="font-size:22px">—</div><div class="stat-label">Ранг</div></div>
         </div>
 
         <div class="section">
             <h2 class="section-title">История турниров</h2>
-            <div class="table-wrapper glass">
-                <table>
-                    <thead><tr><th>Турнир</th><th>Дата</th><th>Место</th></tr></thead>
-                    <tbody>
-                        <tr><td>Dota 2 Pro League — Qualifier</td><td>20 августа 2026</td><td><span class="place-badge">1-е место</span></td></tr>
-                        <tr><td>CS2 Weekly Cup #14</td><td>15 августа 2026</td><td><span class="place-badge">3-е место</span></td></tr>
-                        <tr><td>Dota 2 Amateur Cup</td><td>10 августа 2026</td><td><span class="place-badge">Топ-8</span></td></tr>
-                        <tr><td>ESL One Fall Qualifier</td><td>5 августа 2026</td><td><span class="place-badge">2-е место</span></td></tr>
-                    </tbody>
-                </table>
+            <div class="glass empty-state">
+                <strong>История пока пуста</strong>
+                Здесь появятся реальные турниры пользователя после участия в соревнованиях.
             </div>
         </div>
 
         <div class="section">
             <h2 class="section-title">Достижения</h2>
-            <div class="achievements-grid">
-                <div class="achievement-card glass"><div class="achievement-icon">🏆</div><div class="achievement-title">Чемпион</div><div class="achievement-desc">Победа в 10 турнирах</div></div>
-                <div class="achievement-card glass"><div class="achievement-icon">🔥</div><div class="achievement-title">Серия побед</div><div class="achievement-desc">7 побед подряд</div></div>
-                <div class="achievement-card glass"><div class="achievement-icon">⭐</div><div class="achievement-title">Ветеран</div><div class="achievement-desc">50+ турниров</div></div>
-                <div class="achievement-card glass"><div class="achievement-icon">💎</div><div class="achievement-title">Diamond</div><div class="achievement-desc">Достиг ранга Diamond</div></div>
+            <div class="glass empty-state">
+                <strong>Достижений пока нет</strong>
+                Они будут начисляться только на основе реальных результатов.
             </div>
         </div>
     </div>
 
     <footer><p>© 2026 Esports Platform. Все права защищены.</p></footer>
 
-    <script>
-
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
     <script src="app.js"></script>
 </body>
