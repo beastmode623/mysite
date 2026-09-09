@@ -1,0 +1,7 @@
+-- Applied in Supabase as migration: tournament_bracket_progression
+-- Adds tournament_matches.next_match_id and next_match_slot for winner progression.
+-- Adds admin_link_match_winner(...) and admin_unlink_match_winner(...), authenticated admin-only.
+-- Extends admin_set_match_result(...) so a finished match automatically places its winner into the configured slot of a later scheduled match.
+-- Prevents self-links, cross-tournament links, backward/non-later round links, duplicate destination slots and overwriting a different team in a destination slot.
+-- Extends get_public_tournament_matches(text) with next_match_id and next_match_slot for public bracket rendering.
+-- No bracket, seeding, dates, or real CS2 tournament parameters are generated automatically.
