@@ -1,0 +1,6 @@
+-- Applied in Supabase as migration: tournament_bracket_structure_management
+-- Adds authenticated admin-only automatic Single Elimination bracket generation from an ordered list of approved teams.
+-- Creates all rounds through the final, assigns first-round seeds, configures BO1/BO3/BO5 and links winner advancement automatically.
+-- Supports non-power-of-two team counts by creating intentional TBD/bye slots; no tournament-specific format is invented.
+-- Adds admin_clear_scheduled_tournament_bracket(text), which refuses to clear a bracket once any match is live or finished.
+-- Both RPCs enforce tournament-admin authorization server-side; anon EXECUTE is revoked.
