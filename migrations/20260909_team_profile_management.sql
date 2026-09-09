@@ -1,0 +1,4 @@
+-- Applied to production 2026-09-09.
+-- Adds teams.description, owner-only update_my_team_profile RPC with tournament-stage lock,
+-- audit logging, and safe get_public_team_profile RPC.
+-- Canonical deployed migration: team_profile_management.
