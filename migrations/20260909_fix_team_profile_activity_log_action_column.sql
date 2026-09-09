@@ -1,0 +1,3 @@
+-- Fix update_my_team_profile audit insert.
+-- private.team_activity_log stores event names in the `action` column, not `event_type`.
+-- Applied to production as migration: fix_team_profile_activity_log_action_column.
