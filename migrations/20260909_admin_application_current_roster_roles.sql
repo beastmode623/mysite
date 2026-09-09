@@ -1,0 +1,3 @@
+-- Applied to Supabase production on 2026-09-09.
+-- admin_list_applications now overlays the current team_members nickname/profile/role state
+-- onto the historical application JSON without mutating the original application record.
