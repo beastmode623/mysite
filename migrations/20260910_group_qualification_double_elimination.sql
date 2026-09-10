@@ -1,0 +1,11 @@
+-- Applied in Supabase as:
+-- 1) group_qualification_and_double_elimination_seeding
+-- 2) double_elimination_bracket_generator
+-- 3) qualification_reseed_safely_rebuilds_playoff
+--
+-- Adds tournament_playoff_state and tournament_playoff_seeds, admin confirmation/reset of group results,
+-- qualification snapshotting, safe pre-playoff reseeding, public qualification state, and automatic
+-- Double Elimination bracket generation for power-of-two qualifier counts (4, 8, 16, ...).
+-- Reseeding or reconfirming before playoffs start clears only scheduled/cancelled playoff matches so stale
+-- bracket assignments cannot survive a changed seed. Live/finished playoff matches block those changes.
+-- No real CS2 tournament groups, teams, dates, format, or bracket data are seeded by this migration.
