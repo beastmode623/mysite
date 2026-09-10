@@ -1,0 +1,5 @@
+-- Applied in Supabase as admin_dashboard_overview.
+-- Adds authenticated admin-only aggregate dashboard data for tournament counts,
+-- publication/readiness problems, pending applications and roster changes,
+-- upcoming registration windows, live matches, and scheduled matches.
+-- The RPC is read-only and does not mutate tournament data.
