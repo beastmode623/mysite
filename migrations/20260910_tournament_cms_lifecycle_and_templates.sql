@@ -1,0 +1,5 @@
+-- Applied in Supabase as tournament_cms_lifecycle_and_templates.
+-- Adds archive metadata to tournaments and admin-only CMS RPCs for:
+-- unified tournament editing including discipline/rules, safe publication preflight,
+-- publishing draft tournaments to upcoming, archive/restore, and duplication as a draft template.
+-- Existing tournaments and historical Dota data are not modified by this migration.
