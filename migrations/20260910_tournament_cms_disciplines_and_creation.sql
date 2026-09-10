@@ -1,0 +1,5 @@
+-- Applied in Supabase as tournament_cms_disciplines_and_creation.
+-- Adds public.disciplines catalog, links tournaments to a discipline, seeds CS2 and Dota 2 catalog entries,
+-- and adds authenticated admin-only RPCs for discipline management and safe tournament creation.
+-- New tournaments are created as draft and inherit discipline roster defaults unless explicitly overridden.
+-- This migration does not create any new real tournament or invent future tournament metadata.
