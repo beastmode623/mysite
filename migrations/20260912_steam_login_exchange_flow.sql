@@ -1,0 +1,4 @@
+-- Applied migration: steam_login_exchange_flow
+-- Adds private one-time Steam login sessions/exchanges and service-role-only RPCs
+-- for secure sign-in to an existing platform account linked by SteamID64.
+-- Production migration version: 20260912174338.
