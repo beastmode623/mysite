@@ -15,16 +15,16 @@
       overflow-x: hidden;
       opacity: 1;
       transform: translateY(0);
-      transition: opacity .16s ease, transform .16s ease;
+      transition: opacity .28s ease, transform .28s ease;
     }
     body.page-leaving {
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(8px);
     }
-    ::view-transition-old(root) { animation: siteFadeOut .16s ease both; }
-    ::view-transition-new(root) { animation: siteFadeIn .2s ease both; }
-    @keyframes siteFadeOut { to { opacity: 0; transform: translateY(4px); } }
-    @keyframes siteFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    ::view-transition-old(root) { animation: siteFadeOut .28s ease both; }
+    ::view-transition-new(root) { animation: siteFadeIn .36s ease both; }
+    @keyframes siteFadeOut { to { opacity: 0; transform: translateY(8px); } }
+    @keyframes siteFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
     footer {
       margin-top: auto !important;
@@ -492,7 +492,7 @@
       if (target.pathname === location.pathname && target.search === location.search && target.hash) return;
       event.preventDefault();
       document.body.classList.add('page-leaving');
-      setTimeout(() => { location.href = target.href; }, 145);
+      setTimeout(() => { location.href = target.href; }, 260);
     });
   }
   installPageTransitions();
