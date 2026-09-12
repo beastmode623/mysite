@@ -61,8 +61,12 @@
       gap: 8px;
     }
 
-    /* Keep the header auth control interactive and visually identical on every page. */
+    /* One neutral auth-button appearance everywhere, including the home page. */
     .btn-login {
+      background: transparent !important;
+      border: 1px solid rgba(52,211,153,.12) !important;
+      color: #f0fdf4 !important;
+      box-shadow: none !important;
       transition: background-color .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease !important;
     }
     .btn-login:hover,
