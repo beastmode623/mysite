@@ -33,7 +33,6 @@
 
         .glass { background: var(--glass-bg); backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: var(--glass-shadow); }
 
-        /* ── Hero турнира ── */
         .tournament-hero { text-align: center; padding: 60px 0 80px; border-bottom: 1px solid var(--glass-border); margin-bottom: 60px; }
         .game-tag { display: inline-block; font-size: 13px; color: var(--tiffany); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; margin-bottom: 16px; }
         .tournament-hero h1 { font-size: 56px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 16px; background: linear-gradient(180deg, #fff 20%, var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -49,7 +48,6 @@
         .section-title { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }
         .section-title::before { content: ''; width: 4px; height: 28px; background: var(--accent-gradient); border-radius: 2px; }
 
-        /* ── Таблица группового этапа (выровненная) ── */
         .table-wrapper { overflow-x: auto; border-radius: 20px; }
         table { width: 100%; border-collapse: collapse; min-width: 700px; }
         th {
@@ -64,7 +62,7 @@
             text-align: center;
             white-space: nowrap;
         }
-        th:nth-child(2) { text-align: left; } /* Колонка "Команда" — по левому краю */
+        th:nth-child(2) { text-align: left !important; }
         td {
             padding: 18px 20px;
             font-size: 15px;
@@ -72,61 +70,57 @@
             text-align: center;
             vertical-align: middle;
         }
-        td:nth-child(2) { text-align: left; } /* Колонка "Команда" — по левому краю */
+        td:nth-child(2) { text-align: left !important; }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: rgba(52,211,153,0.03); }
 
         .team-cell { display: flex; align-items: center; gap: 12px; }
+        td:nth-child(2) > .team-cell {
+            width: 100%;
+            justify-content: flex-start !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            text-align: left !important;
+        }
         .team-logo-small { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #050a08; flex-shrink: 0; }
         .status-badge { display: inline-block; padding: 4px 12px; border-radius: 980px; font-size: 12px; font-weight: 500; white-space: nowrap; }
         .status-playoff { background: rgba(52,211,153,0.15); color: var(--emerald); }
         .status-eliminated { background: rgba(255,69,58,0.15); color: #ff453a; }
         .position-cell { font-weight: 700; color: var(--tiffany); }
 
-        /* ── Bracket (турнирная сетка) ── */
         .bracket-tabs { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
         .bracket-tab { padding: 10px 24px; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 980px; cursor: pointer; color: var(--text-secondary); font-size: 14px; font-family: inherit; transition: all 0.3s; }
         .bracket-tab:hover { border-color: var(--glass-border-hover); color: var(--text-primary); }
         .bracket-tab.active { background: var(--accent-gradient); color: #050a08; border-color: transparent; font-weight: 600; }
-
         .bracket-panel { display: none; }
         .bracket-panel.active { display: block; }
-
         .bracket-wrapper { overflow-x: auto; padding: 20px 0; }
         .bracket { display: grid; gap: 32px; min-width: 900px; position: relative; }
         .bracket.upper { grid-template-columns: repeat(4, 1fr); }
         .bracket.lower { grid-template-columns: repeat(5, 1fr); }
         .bracket.grand { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-
         .bracket-round { display: flex; flex-direction: column; justify-content: space-around; position: relative; }
         .round-title { font-size: 13px; color: var(--tiffany); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; font-weight: 600; text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--glass-border); }
         .round-matches { display: flex; flex-direction: column; justify-content: space-around; flex: 1; gap: 12px; }
-
         .bracket-match { background: rgba(52, 211, 153, 0.04); border: 1px solid var(--glass-border); border-radius: 14px; padding: 12px 16px; transition: all 0.3s; position: relative; }
         .bracket-match:hover { background: rgba(52, 211, 153, 0.08); border-color: var(--glass-border-hover); }
         .bracket-match-date { font-size: 11px; color: var(--text-secondary); margin-bottom: 8px; text-align: center; }
-
         .bracket-team { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 14px; }
         .bracket-team + .bracket-team { border-top: 1px solid var(--glass-border); margin-top: 6px; padding-top: 10px; }
         .bracket-team-name { display: flex; align-items: center; gap: 8px; font-weight: 500; }
         .bracket-team-logo { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #050a08; flex-shrink: 0; }
         .bracket-score { font-size: 16px; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; min-width: 20px; text-align: right; }
-
         .bracket-team.winner .bracket-team-name { color: var(--emerald); }
         .bracket-team.loser .bracket-team-name { color: var(--text-secondary); opacity: 0.6; }
         .tbd { color: var(--text-secondary); font-style: italic; }
-
         .bracket-round:not(:last-child) .bracket-match::after { content: ''; position: absolute; top: 50%; right: -16px; width: 16px; height: 1px; background: var(--glass-border); }
         .bracket-round:not(:first-child) .bracket-match::before { content: ''; position: absolute; top: 50%; left: -16px; width: 16px; height: 1px; background: var(--glass-border); }
-
         .bracket-final { text-align: center; }
         .bracket-champion { background: linear-gradient(135deg, rgba(52, 211, 153, 0.12) 0%, rgba(45, 212, 191, 0.12) 100%); border: 1px solid var(--glass-border-hover); border-radius: 18px; padding: 24px; margin-top: 16px; }
         .champion-label { font-size: 11px; color: var(--tiffany); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; margin-bottom: 8px; }
         .champion-name { font-size: 20px; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
         .empty-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
-
         footer { background: var(--bg-dark); padding: 40px 24px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--glass-border); }
 
         @media (max-width: 834px) {
@@ -178,7 +172,6 @@
             </div>
         </div>
 
-        <!-- Групповой этап -->
         <div class="section">
             <h2 class="section-title">Групповой этап</h2>
             <div class="table-wrapper glass">
@@ -194,46 +187,21 @@
                             <th style="width: 160px;">Статус</th>
                         </tr>
                     </thead>
-                    <tbody id="groupTableBody">
-                        <!-- Заполняется из JSON -->
-                    </tbody>
+                    <tbody id="groupTableBody"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Плей-офф -->
         <div class="section">
             <h2 class="section-title">Плей-офф (Double Elimination)</h2>
-
             <div class="bracket-tabs">
                 <div class="bracket-tab active" data-panel="upper">Верхняя сетка</div>
                 <div class="bracket-tab" data-panel="lower">Нижняя сетка</div>
                 <div class="bracket-tab" data-panel="grand">Гранд-финал</div>
             </div>
-
-            <div class="bracket-panel active" id="panel-upper">
-                <div class="glass" style="padding: 32px;">
-                    <div class="bracket-wrapper">
-                        <div class="bracket upper" id="upperBracket"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bracket-panel" id="panel-lower">
-                <div class="glass" style="padding: 32px;">
-                    <div class="bracket-wrapper">
-                        <div class="bracket lower" id="lowerBracket"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bracket-panel" id="panel-grand">
-                <div class="glass" style="padding: 32px;">
-                    <div class="bracket-wrapper">
-                        <div class="bracket grand" id="grandFinal"></div>
-                    </div>
-                </div>
-            </div>
+            <div class="bracket-panel active" id="panel-upper"><div class="glass" style="padding: 32px;"><div class="bracket-wrapper"><div class="bracket upper" id="upperBracket"></div></div></div></div>
+            <div class="bracket-panel" id="panel-lower"><div class="glass" style="padding: 32px;"><div class="bracket-wrapper"><div class="bracket lower" id="lowerBracket"></div></div></div></div>
+            <div class="bracket-panel" id="panel-grand"><div class="glass" style="padding: 32px;"><div class="bracket-wrapper"><div class="bracket grand" id="grandFinal"></div></div></div></div>
         </div>
     </div>
 
@@ -241,194 +209,35 @@
 
     <script>
         const TOURNAMENT_FILE = 'data/tournament-dota2-2026.json';
-
-        function formatDate(dateStr) {
-            if (!dateStr) return '—';
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-        }
-
-        function formatDateShort(dateStr) {
-            if (!dateStr) return '—';
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
-        }
-
-        function getTeamById(teams, id) {
-            return teams.find(t => t.id === id);
-        }
-
+        function formatDate(dateStr) { if (!dateStr) return '—'; const date = new Date(dateStr); return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }); }
+        function formatDateShort(dateStr) { if (!dateStr) return '—'; const date = new Date(dateStr); return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }); }
+        function getTeamById(teams, id) { return teams.find(t => t.id === id); }
         function renderBracketTeam(team, score, isWinner, isLoser) {
-            if (!team) {
-                return `
-                    <div class="bracket-team">
-                        <div class="bracket-team-name tbd">TBD</div>
-                        <div class="bracket-score tbd">—</div>
-                    </div>
-                `;
-            }
-            const winnerClass = isWinner ? ' winner' : '';
-            const loserClass = isLoser ? ' loser' : '';
-            return `
-                <div class="bracket-team${winnerClass}${loserClass}">
-                    <div class="bracket-team-name">
-                        <div class="bracket-team-logo">${team.logo}</div>
-                        ${team.name}
-                    </div>
-                    <div class="bracket-score">${score !== null && score !== undefined ? score : '—'}</div>
-                </div>
-            `;
+            if (!team) return `<div class="bracket-team"><div class="bracket-team-name tbd">TBD</div><div class="bracket-score tbd">—</div></div>`;
+            const winnerClass = isWinner ? ' winner' : ''; const loserClass = isLoser ? ' loser' : '';
+            return `<div class="bracket-team${winnerClass}${loserClass}"><div class="bracket-team-name"><div class="bracket-team-logo">${team.logo}</div>${team.name}</div><div class="bracket-score">${score !== null && score !== undefined ? score : '—'}</div></div>`;
         }
-
         function renderMatch(match, teams) {
-            const team1 = getTeamById(teams, match.team1);
-            const team2 = getTeamById(teams, match.team2);
-            const isTeam1Winner = match.winner === match.team1;
-            const isTeam2Winner = match.winner === match.team2;
-
-            return `
-                <div class="bracket-match">
-                    ${match.date ? `<div class="bracket-match-date">${formatDateShort(match.date)}</div>` : ''}
-                    ${renderBracketTeam(team1, match.score1, isTeam1Winner, isTeam2Winner)}
-                    ${renderBracketTeam(team2, match.score2, isTeam2Winner, isTeam1Winner)}
-                </div>
-            `;
+            const team1 = getTeamById(teams, match.team1), team2 = getTeamById(teams, match.team2), isTeam1Winner = match.winner === match.team1, isTeam2Winner = match.winner === match.team2;
+            return `<div class="bracket-match">${match.date ? `<div class="bracket-match-date">${formatDateShort(match.date)}</div>` : ''}${renderBracketTeam(team1, match.score1, isTeam1Winner, isTeam2Winner)}${renderBracketTeam(team2, match.score2, isTeam2Winner, isTeam1Winner)}</div>`;
         }
-
-        function renderRound(title, matches, teams) {
-            const matchesHtml = matches.map(m => renderMatch(m, teams)).join('');
-            return `
-                <div class="bracket-round">
-                    <div class="round-title">${title}</div>
-                    <div class="round-matches">
-                        ${matchesHtml}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderUpperBracket(playoffs, teams) {
-            const ub = playoffs.upperBracket;
-            let html = '';
-            if (ub.playIn && ub.playIn.length > 0) html += renderRound('Play-In', ub.playIn, teams);
-            if (ub.roundOf16 && ub.roundOf16.length > 0) html += renderRound('1/8 финала', ub.roundOf16, teams);
-            if (ub.semifinals && ub.semifinals.length > 0) html += renderRound('1/2 финала', ub.semifinals, teams);
-            if (ub.final) html += renderRound('Финал UB', [ub.final], teams);
-            return html;
-        }
-
-        function renderLowerBracket(playoffs, teams) {
-            const lb = playoffs.lowerBracket;
-            let html = '';
-            if (lb.round1 && lb.round1.length > 0) html += renderRound('Раунд 1', lb.round1, teams);
-            if (lb.roundOf16 && lb.roundOf16.length > 0) html += renderRound('1/8 финала', lb.roundOf16, teams);
-            if (lb.quarterfinals && lb.quarterfinals.length > 0) html += renderRound('1/4 финала', lb.quarterfinals, teams);
-            if (lb.semifinals && lb.semifinals.length > 0) html += renderRound('1/2 финала', lb.semifinals, teams);
-            if (lb.final) html += renderRound('Финал LB', [lb.final], teams);
-            return html;
-        }
-
-        function renderGrandFinal(playoffs, teams) {
-            const gf = playoffs.grandFinal;
-            const team1 = getTeamById(teams, gf.team1);
-            const team2 = getTeamById(teams, gf.team2);
-            const winnerTeam = getTeamById(teams, gf.winner);
-
-            return `
-                <div class="bracket-round bracket-final">
-                    <div class="round-title">Гранд-финал</div>
-                    <div class="round-matches">
-                        <div class="bracket-match">
-                            ${gf.date ? `<div class="bracket-match-date">${formatDateShort(gf.date)}</div>` : ''}
-                            ${renderBracketTeam(team1, gf.score1, gf.winner === gf.team1, gf.winner === gf.team2)}
-                            ${renderBracketTeam(team2, gf.score2, gf.winner === gf.team2, gf.winner === gf.team1)}
-                        </div>
-                        <div class="bracket-champion">
-                            <div class="champion-label">🏆 Чемпион</div>
-                            <div class="champion-name">${winnerTeam ? winnerTeam.name : 'TBD'}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
+        function renderRound(title, matches, teams) { return `<div class="bracket-round"><div class="round-title">${title}</div><div class="round-matches">${matches.map(m => renderMatch(m, teams)).join('')}</div></div>`; }
+        function renderUpperBracket(playoffs, teams) { const ub = playoffs.upperBracket; let html=''; if (ub.playIn?.length) html+=renderRound('Play-In',ub.playIn,teams); if (ub.roundOf16?.length) html+=renderRound('1/8 финала',ub.roundOf16,teams); if (ub.semifinals?.length) html+=renderRound('1/2 финала',ub.semifinals,teams); if (ub.final) html+=renderRound('Финал UB',[ub.final],teams); return html; }
+        function renderLowerBracket(playoffs, teams) { const lb = playoffs.lowerBracket; let html=''; if (lb.round1?.length) html+=renderRound('Раунд 1',lb.round1,teams); if (lb.roundOf16?.length) html+=renderRound('1/8 финала',lb.roundOf16,teams); if (lb.quarterfinals?.length) html+=renderRound('1/4 финала',lb.quarterfinals,teams); if (lb.semifinals?.length) html+=renderRound('1/2 финала',lb.semifinals,teams); if (lb.final) html+=renderRound('Финал LB',[lb.final],teams); return html; }
+        function renderGrandFinal(playoffs, teams) { const gf=playoffs.grandFinal,team1=getTeamById(teams,gf.team1),team2=getTeamById(teams,gf.team2),winnerTeam=getTeamById(teams,gf.winner); return `<div class="bracket-round bracket-final"><div class="round-title">Гранд-финал</div><div class="round-matches"><div class="bracket-match">${gf.date?`<div class="bracket-match-date">${formatDateShort(gf.date)}</div>`:''}${renderBracketTeam(team1,gf.score1,gf.winner===gf.team1,gf.winner===gf.team2)}${renderBracketTeam(team2,gf.score2,gf.winner===gf.team2,gf.winner===gf.team1)}</div><div class="bracket-champion"><div class="champion-label">🏆 Чемпион</div><div class="champion-name">${winnerTeam?winnerTeam.name:'TBD'}</div></div></div></div>`; }
         function renderGroupTable(teams) {
-            const tbody = document.getElementById('groupTableBody');
-            const sortedTeams = [...teams].sort((a, b) => a.groupStage.position - b.groupStage.position);
-
-            tbody.innerHTML = sortedTeams.map(team => {
-                const gs = team.groupStage;
-                const isPlayoff = gs.position <= 4;
-                const statusHtml = isPlayoff
-                    ? '<span class="status-badge status-playoff">В плей-офф</span>'
-                    : '<span class="status-badge status-eliminated">Play-In</span>';
-
-                return `
-                    <tr>
-                        <td class="position-cell">${gs.position}</td>
-                        <td>
-                            <div class="team-cell">
-                                <div class="team-logo-small">${team.logo}</div>
-                                ${team.name}
-                            </div>
-                        </td>
-                        <td>${gs.wins}</td>
-                        <td>${gs.losses}</td>
-                        <td>${gs.points}</td>
-                        <td>${gs.mapDifference}</td>
-                        <td>${statusHtml}</td>
-                    </tr>
-                `;
-            }).join('');
+            const tbody=document.getElementById('groupTableBody'); const sortedTeams=[...teams].sort((a,b)=>a.groupStage.position-b.groupStage.position);
+            tbody.innerHTML=sortedTeams.map(team=>{ const gs=team.groupStage; const isPlayoff=gs.position<=4; const statusHtml=isPlayoff?'<span class="status-badge status-playoff">В плей-офф</span>':'<span class="status-badge status-eliminated">Play-In</span>'; return `<tr><td class="position-cell">${gs.position}</td><td><div class="team-cell"><div class="team-logo-small">${team.logo}</div>${team.name}</div></td><td>${gs.wins}</td><td>${gs.losses}</td><td>${gs.points}</td><td>${gs.mapDifference}</td><td>${statusHtml}</td></tr>`; }).join('');
         }
-
         async function loadTournament() {
             try {
-                const response = await fetch(TOURNAMENT_FILE);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const data = await response.json();
-
-                const { tournament, teams, playoffs } = data;
-
-                document.getElementById('tournamentName').textContent = tournament.name;
-                document.getElementById('tournamentDescription').textContent = tournament.description;
-                document.getElementById('infoStartDate').textContent = formatDate(tournament.startDate);
-                document.getElementById('infoFormat').textContent = tournament.format;
-                document.getElementById('infoTeams').textContent = tournament.maxTeams;
-                document.getElementById('tournamentDates').textContent =
-                    `${formatDate(tournament.startDate)} — ${formatDate(tournament.endDate)}`;
-                document.title = `${tournament.name} — Esports Platform`;
-
-                renderGroupTable(teams);
-
-                document.getElementById('upperBracket').innerHTML = renderUpperBracket(playoffs, teams);
-                document.getElementById('lowerBracket').innerHTML = renderLowerBracket(playoffs, teams);
-                document.getElementById('grandFinal').innerHTML = renderGrandFinal(playoffs, teams);
-
-            } catch (error) {
-                console.error('Ошибка загрузки турнира:', error);
-                document.querySelector('.container').innerHTML = `
-                    <div class="empty-state glass" style="padding: 60px;">
-                        <div class="empty-state-icon">⚠️</div>
-                        <h3 style="margin-bottom: 12px;">Не удалось загрузить данные турнира</h3>
-                        <p style="color: var(--text-secondary);">Проверьте файл: ${TOURNAMENT_FILE}</p>
-                        <p style="color: var(--text-secondary); margin-top: 8px; font-size: 13px;">${error.message}</p>
-                    </div>
-                `;
-            }
+                const response=await fetch(TOURNAMENT_FILE); if(!response.ok) throw new Error(`HTTP ${response.status}`); const data=await response.json(); const {tournament,teams,playoffs}=data;
+                document.getElementById('tournamentName').textContent=tournament.name; document.getElementById('tournamentDescription').textContent=tournament.description; document.getElementById('infoStartDate').textContent=formatDate(tournament.startDate); document.getElementById('infoFormat').textContent=tournament.format; document.getElementById('infoTeams').textContent=tournament.maxTeams; document.getElementById('tournamentDates').textContent=`${formatDate(tournament.startDate)} — ${formatDate(tournament.endDate)}`; document.title=`${tournament.name} — Esports Platform`;
+                renderGroupTable(teams); document.getElementById('upperBracket').innerHTML=renderUpperBracket(playoffs,teams); document.getElementById('lowerBracket').innerHTML=renderLowerBracket(playoffs,teams); document.getElementById('grandFinal').innerHTML=renderGrandFinal(playoffs,teams);
+            } catch(error) { console.error('Ошибка загрузки турнира:',error); document.querySelector('.container').innerHTML=`<div class="empty-state glass" style="padding: 60px;"><div class="empty-state-icon">⚠️</div><h3 style="margin-bottom: 12px;">Не удалось загрузить данные турнира</h3><p style="color: var(--text-secondary);">Проверьте файл: ${TOURNAMENT_FILE}</p><p style="color: var(--text-secondary); margin-top: 8px; font-size: 13px;">${error.message}</p></div>`; }
         }
-
-        document.querySelectorAll('.bracket-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.bracket-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.bracket-panel').forEach(p => p.classList.remove('active'));
-                tab.classList.add('active');
-                document.getElementById(`panel-${tab.dataset.panel}`).classList.add('active');
-            });
-        });
-document.addEventListener('DOMContentLoaded', function() {
-            loadTournament();
-        });
+        document.querySelectorAll('.bracket-tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.bracket-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.bracket-panel').forEach(p=>p.classList.remove('active'));tab.classList.add('active');document.getElementById(`panel-${tab.dataset.panel}`).classList.add('active');});});
+        document.addEventListener('DOMContentLoaded',function(){loadTournament();});
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
     <script src="app.js"></script>
