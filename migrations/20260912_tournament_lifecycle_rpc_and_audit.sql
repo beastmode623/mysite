@@ -1,0 +1,12 @@
+-- Production migration: explicit tournament lifecycle transitions and tournament-level audit.
+-- Applied in Supabase as:
+--   tournament_lifecycle_rpc_and_audit
+--   fix_tournament_lifecycle_audit_from_status
+--
+-- Key behavior:
+-- * admin_transition_tournament_status is the only supported lifecycle transition path.
+-- * metadata editors cannot directly change tournament status.
+-- * start transition runs admin_tournament_preflight.
+-- * cancellation requires exact tournament-name confirmation.
+-- * tournament lifecycle/CMS/archive actions are written to private.tournament_activity_log.
+-- * admin_get_tournament_activity exposes the audit to authenticated tournament admins only.
