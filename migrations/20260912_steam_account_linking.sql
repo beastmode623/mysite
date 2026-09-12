@@ -1,0 +1,14 @@
+-- Steam account linking foundation.
+-- Production migrations applied in Supabase:
+--   20260910180858 steam_account_linking_foundation
+--   20260912173043 steam_link_session_service_rpc
+--
+-- Current production schema adds Steam metadata to public.profiles:
+-- steam_persona_name, steam_avatar_url, steam_linked_at (alongside existing steam_id,
+-- steam_profile_url, avatar_url and avatar_source), plus private.steam_link_sessions.
+-- Authenticated RPCs: get_my_steam_link(), unlink_my_steam(), use_my_steam_avatar().
+-- Service-role-only RPCs used by the steam-auth Edge Function:
+-- steam_create_link_session(uuid,text,text),
+-- steam_consume_link_session(text,text,text,text,text),
+-- steam_update_link_metadata(uuid,text,text,text).
+-- The Edge Function verifies Steam OpenID responses server-side before associating a SteamID64.
