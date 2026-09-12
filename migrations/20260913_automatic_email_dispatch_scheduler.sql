@@ -1,0 +1,26 @@
+-- Production migration summary for automatic email delivery.
+-- Applied directly to Supabase on 2026-09-13.
+--
+-- Enabled extensions:
+--   pg_net
+--   pg_cron
+--
+-- Added private scheduler configuration and helper:
+--   private.email_dispatch_scheduler_config
+--   private.dispatch_email_queue_async()
+--
+-- Registered cron job:
+--   email-dispatch-every-minute  (* * * * *)
+--
+-- The production scheduler uses a private dispatch token shared only between
+-- the private database configuration and the deployed email-dispatch Edge Function.
+-- The token is intentionally NOT stored in this public repository.
+--
+-- email-dispatch was redeployed with custom authorization for either:
+--   1) an authenticated site admin/service-role request, or
+--   2) the private database scheduler token.
+-- Gateway JWT verification is disabled for the function because the function
+-- performs its own authorization before any queue work is executed.
+--
+-- Do not replay this file as-is to a new environment. Generate a fresh private
+-- scheduler token and configure both the private DB row and Edge Function.
