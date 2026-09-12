@@ -1,0 +1,19 @@
+-- Production migrations applied to Supabase on 2026-09-12.
+-- 1) tournament_engine_results_byes_and_placements
+--    - tournament_matches.is_bye
+--    - tournament_placements + public read RPC
+--    - strict BO1/BO3/BO5 score validation
+--    - safe winner/loser advancement helpers
+--    - admin_set_match_result hardened
+--    - admin_correct_match_result with downstream reset/recalculation
+--    - admin_reset_match_result
+--    - admin_resolve_tournament_byes
+--    - admin_finalize_tournament with winner/runner-up/third-place snapshots
+--    - get_public_tournament_matches expanded with bracket side, loser routes and BYE state
+-- 2) single_elimination_auto_resolves_byes
+--    - automatic BYE propagation after bracket generation
+-- 3) harden_bye_propagation_and_seeding
+--    - avoids premature BYE propagation while another feeder match is pending
+--    - distributes non-power-of-two entrants without empty-vs-empty first-round matches
+--
+-- Full authoritative definitions are the applied production functions in Supabase.
