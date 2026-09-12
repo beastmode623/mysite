@@ -1,0 +1,13 @@
+-- Production hardening applied to Supabase.
+--
+-- Key changes:
+-- - admin_review_application is idempotent for repeat delivery of the same decision.
+-- - admin_archive_tournament is idempotent and avoids duplicate audit rows.
+-- - lifecycle transitions notify affected team owners for ongoing/live/cancelled states.
+-- - group-stage confirmation is idempotent once a valid qualification snapshot exists.
+-- - correcting/resetting a group result invalidates unstarted playoff seeds/bracket and is blocked after playoffs start.
+-- - match corrections/resets, group confirmation and tournament finalization are added to tournament-level audit.
+-- - tournament finalization is idempotent and notifies approved team owners once.
+--
+-- Migration name in production:
+-- production_idempotency_notification_audit_hardening
