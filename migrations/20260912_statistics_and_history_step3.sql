@@ -1,0 +1,24 @@
+-- Step 3: statistics and historical match roster snapshots.
+-- Production migrations:
+--   20260912183928 player_team_statistics_and_match_roster_history
+--   20260912184106 statistics_directory_summaries
+--
+-- Historical integrity model:
+-- * private.match_roster_snapshots freezes linked team roster data when a match first becomes LIVE/finished.
+-- * captain/main snapshots count as player match appearances; reserve slots are preserved but not counted as appearances.
+-- * later roster/profile changes do not rewrite historical player participation.
+-- * BYE rows are excluded from played-match statistics.
+--
+-- Public/team RPCs deployed:
+--   get_public_team_statistics(text)
+--   get_public_team_match_history(text, integer, integer)
+--   get_public_team_directory_stats(text, text)
+--
+-- Authenticated/player RPCs deployed (profile privacy enforced):
+--   get_public_player_statistics(uuid)
+--   get_public_player_match_history(uuid, integer, integer)
+--   get_public_player_tournament_history(uuid)
+--   get_public_player_directory_stats(text, text)
+--
+-- Direct access to private.match_roster_snapshots is not exposed to clients.
+-- Player statistics RPCs are revoked from anon; team/public directory statistics remain safe public reads.
