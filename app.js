@@ -1,26 +1,40 @@
 (() => {
   'use strict';
 
-  // Global page layout: keeps the copyright footer at the bottom on short pages,
-  // while letting it follow content naturally on long pages. All current pages
-  // load app.js, so this also becomes the default for future pages that use it.
   const layoutStyle = document.createElement('style');
   layoutStyle.id = 'global-page-layout';
   layoutStyle.textContent = `
+    @view-transition { navigation: auto; }
+
     html { min-height: 100%; }
     body {
       min-height: 100vh !important;
       min-height: 100dvh !important;
       display: flex !important;
       flex-direction: column !important;
+      overflow-x: hidden;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .16s ease, transform .16s ease;
     }
+    body.page-leaving {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    ::view-transition-old(root) { animation: siteFadeOut .16s ease both; }
+    ::view-transition-new(root) { animation: siteFadeIn .2s ease both; }
+    @keyframes siteFadeOut { to { opacity: 0; transform: translateY(4px); } }
+    @keyframes siteFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
     footer {
       margin-top: auto !important;
       flex: 0 0 auto !important;
       width: 100% !important;
     }
 
-    /* Global visual rhythm: centered cell content and consistent control spacing. */
+    img, video, iframe, canvas, svg { max-width: 100%; }
+    main, .container, section, article, form, .glass, .card, .panel, .row { min-width: 0; }
+
     table th,
     table td {
       text-align: center !important;
@@ -61,7 +75,6 @@
       gap: 8px;
     }
 
-    /* One neutral auth-button appearance everywhere, including the home page. */
     .btn-login {
       background: transparent !important;
       border: 1px solid rgba(52,211,153,.12) !important;
@@ -108,9 +121,9 @@
       min-height: 42px;
       padding: 10px 14px !important;
       line-height: 1.2 !important;
+      max-width: 100%;
     }
 
-    /* Keep text clear of leading search icons after the global input normalization. */
     .search input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']) {
       padding-left: 52px !important;
     }
@@ -118,27 +131,140 @@
     textarea {
       padding: 12px 14px !important;
       line-height: 1.45 !important;
+      max-width: 100%;
     }
 
     .actions {
       align-items: center !important;
       gap: 10px !important;
+      flex-wrap: wrap !important;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 760px) {
+      nav {
+        width: 100% !important;
+        min-height: 58px !important;
+        height: auto !important;
+        padding: 8px 14px !important;
+        gap: 10px !important;
+      }
+      nav .logo {
+        flex: 0 0 auto;
+        font-size: 19px !important;
+      }
+      .nav-links {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        max-width: calc(100vw - 105px) !important;
+        gap: 6px !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start !important;
+        padding: 2px 0 !important;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links li { flex: 0 0 auto; }
+      .nav-links a {
+        white-space: nowrap !important;
+        font-size: 12px !important;
+      }
+      .btn-login {
+        min-height: 36px !important;
+        padding: 8px 12px !important;
+      }
+
+      .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+
+      .hero h1,
+      .profile-hero h1 {
+        font-size: clamp(32px, 10vw, 42px) !important;
+        overflow-wrap: anywhere;
+      }
+      .hero p,
+      .profile-handle {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+      }
+      .section-title { font-size: clamp(24px, 7vw, 30px) !important; }
+
+      .grid,
+      .stats-grid,
+      .cards-grid,
+      .tournament-grid,
+      .admin-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .row,
+      .team-bottom,
+      .player-bottom,
+      .application-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      .actions { width: 100%; }
+      .actions > .btn,
+      .actions > button,
+      .actions > a.btn {
+        flex: 1 1 160px;
+      }
+
       table th,
       table td {
         padding: 12px 10px !important;
+        font-size: 12px !important;
       }
+
+      .table-wrap,
+      .table-wrapper,
+      .matches-table,
+      .standings-table,
+      .admin-table {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+
       button,
       .btn,
       a.btn,
       .tab,
       .filter,
-      .btn-login,
       [role='button'] {
         min-height: 42px;
       }
+
+      input,
+      select,
+      textarea,
+      button {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding-left: 12px !important; padding-right: 12px !important; }
+      .profile-hero { padding-left: 6px !important; padding-right: 6px !important; }
+      .statline { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .tabs, .filters { max-width: 100%; overflow-x: auto; justify-content: flex-start !important; scrollbar-width: none; }
+      .tabs::-webkit-scrollbar, .filters::-webkit-scrollbar { display: none; }
+      .tab, .filter { flex: 0 0 auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+      body.page-leaving { transform: none; }
     }
   `;
   (document.head || document.documentElement).appendChild(layoutStyle);
@@ -350,6 +476,26 @@
       return `${candidate.pathname}${candidate.search}${candidate.hash}`;
     } catch (_) { return fallback; }
   }
+
+  function installPageTransitions() {
+    if (!document.body || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    window.addEventListener('pageshow', () => document.body?.classList.remove('page-leaving'));
+    document.addEventListener('click', event => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.target.closest?.('a[href]');
+      if (!link || link.target === '_blank' || link.hasAttribute('download') || link.dataset.noTransition !== undefined) return;
+      const rawHref = link.getAttribute('href') || '';
+      if (!rawHref || rawHref.startsWith('#') || rawHref.startsWith('mailto:') || rawHref.startsWith('tel:') || rawHref.startsWith('javascript:')) return;
+      let target;
+      try { target = new URL(link.href, location.href); } catch (_) { return; }
+      if (target.origin !== location.origin) return;
+      if (target.pathname === location.pathname && target.search === location.search && target.hash) return;
+      event.preventDefault();
+      document.body.classList.add('page-leaving');
+      setTimeout(() => { location.href = target.href; }, 145);
+    });
+  }
+  installPageTransitions();
 
   document.addEventListener('DOMContentLoaded', async () => {
     const initialSession = await getInitialSession();
