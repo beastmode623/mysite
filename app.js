@@ -19,6 +19,106 @@
       flex: 0 0 auto !important;
       width: 100% !important;
     }
+
+    /* Global visual rhythm: centered cell content and consistent control spacing. */
+    table th,
+    table td {
+      text-align: center !important;
+      vertical-align: middle !important;
+      padding: 14px 16px !important;
+      line-height: 1.35 !important;
+    }
+
+    table th > *,
+    table td > * {
+      vertical-align: middle;
+    }
+
+    table td > .match-team-cell,
+    table td > .team-cell,
+    table td > .actions {
+      justify-content: center !important;
+      align-items: center !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    button,
+    .btn,
+    a.btn,
+    .tab,
+    .filter,
+    .btn-login,
+    [role='button'] {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      min-height: 40px;
+      padding: 10px 16px !important;
+      line-height: 1.2 !important;
+      vertical-align: middle !important;
+      gap: 8px;
+    }
+
+    .badge,
+    .status,
+    .round-badge,
+    .application-status,
+    .team-game-badge,
+    .team-rank,
+    .hero-tag {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      min-height: 28px;
+      padding: 6px 10px !important;
+      line-height: 1.2 !important;
+    }
+
+    .mini,
+    .stat-card {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      padding: 14px 12px !important;
+    }
+
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']),
+    select {
+      min-height: 42px;
+      padding: 10px 14px !important;
+      line-height: 1.2 !important;
+    }
+
+    textarea {
+      padding: 12px 14px !important;
+      line-height: 1.45 !important;
+    }
+
+    .actions {
+      align-items: center !important;
+      gap: 10px !important;
+    }
+
+    @media (max-width: 700px) {
+      table th,
+      table td {
+        padding: 12px 10px !important;
+      }
+      button,
+      .btn,
+      a.btn,
+      .tab,
+      .filter,
+      .btn-login,
+      [role='button'] {
+        min-height: 42px;
+      }
+    }
   `;
   (document.head || document.documentElement).appendChild(layoutStyle);
 
