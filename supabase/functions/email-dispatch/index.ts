@@ -8,8 +8,33 @@ const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 const EMAIL_FROM = Deno.env.get("EMAIL_FROM") ?? "Esports Platform <onboarding@resend.dev>";
 const SITE_URL = (Deno.env.get("SITE_URL") ?? "https://mysite-esports-platform.vercel.app").replace(/\/$/, "");
 
-function json(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json; charset=utf-8" } });
+const ALLOWED_ORIGINS = new Set([
+  "https://mysite-esports-platform.vercel.app",
+  "http://localhost",
+  "http://localhost:3000",
+  "http://127.0.0.1",
+  "http://127.0.0.1:3000",
+]);
+
+function corsHeaders(req: Request) {
+  const origin = req.headers.get("origin") ?? "";
+  const allowOrigin = ALLOWED_ORIGINS.has(origin) ? origin : "https://mysite-esports-platform.vercel.app";
+  return {
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Vary": "Origin",
+  };
+}
+
+function json(req: Request, body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      ...corsHeaders(req),
+      "content-type": "application/json; charset=utf-8",
+    },
+  });
 }
 
 function escapeHtml(value: unknown) {
@@ -37,8 +62,13 @@ async function isAuthorized(req: Request) {
   const token = auth.replace(/^Bearer\s+/i, "");
   if (!token) return false;
   try {
-    const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
-    if (payload?.role === "service_role") return true;
+    const parts = token.split(".");
+    if (parts.length >= 2) {
+      const normalized = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+      const padded = normalized + "=".repeat((4 - normalized.length % 4) % 4);
+      const payload = JSON.parse(atob(padded));
+      if (payload?.role === "service_role") return true;
+    }
   } catch {}
   const client = createClient(SUPABASE_URL, ANON_KEY, { global: { headers: { Authorization: auth } } });
   const { data, error } = await client.rpc("is_tournament_admin");
@@ -46,10 +76,13 @@ async function isAuthorized(req: Request) {
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
-  if (!(await isAuthorized(req))) return json({ error: "Forbidden" }, 403);
-  if (!RESEND_API_KEY) return json({ error: "RESEND_API_KEY is not configured", configured: false }, 503);
-  if (!SUPABASE_URL || !SERVICE_ROLE_KEY) return json({ error: "Supabase server credentials unavailable" }, 500);
+  if (req.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: corsHeaders(req) });
+  }
+  if (req.method !== "POST") return json(req, { error: "Method not allowed" }, 405);
+  if (!(await isAuthorized(req))) return json(req, { error: "Forbidden" }, 403);
+  if (!RESEND_API_KEY) return json(req, { error: "RESEND_API_KEY is not configured", configured: false }, 503);
+  if (!SUPABASE_URL || !SERVICE_ROLE_KEY) return json(req, { error: "Supabase server credentials unavailable" }, 500);
 
   const service = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
   let limit = 25;
@@ -59,7 +92,7 @@ Deno.serve(async (req: Request) => {
   } catch {}
 
   const { data: jobs, error: claimError } = await service.rpc("email_claim_delivery_jobs", { p_limit: limit });
-  if (claimError) return json({ error: claimError.message }, 500);
+  if (claimError) return json(req, { error: claimError.message }, 500);
 
   const results: Array<Record<string, unknown>> = [];
   for (const job of jobs ?? []) {
@@ -81,5 +114,5 @@ Deno.serve(async (req: Request) => {
     }
   }
 
-  return json({ configured: true, processed: results.length, results });
+  return json(req, { configured: true, processed: results.length, results });
 });
