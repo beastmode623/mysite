@@ -157,15 +157,10 @@
 
       const tournament = await this.getTournament(tournamentId);
       if (!tournament) throw new Error('Турнир не найден.');
-      if (tournament.status !== 'registration') throw new Error('Регистрация на этот турнир сейчас закрыта.');
-      const now = Date.now();
-      if (tournament.registrationOpensAt && now < new Date(tournament.registrationOpensAt).getTime()) throw new Error('Регистрация ещё не началась.');
-      if (tournament.registrationClosesAt && now > new Date(tournament.registrationClosesAt).getTime()) throw new Error('Регистрация уже завершена.');
 
       const roster = [...form.querySelectorAll('.player-card')].map((card, index) => {
         const inputs = [...card.querySelectorAll('input')];
         const texts = inputs.filter(i => i.type === 'text');
-        const captainBox = card.querySelector('.captain-checkbox');
         return {
           full_name: texts[0]?.value?.trim() || '',
           city: texts[1]?.value?.trim() || '',
@@ -175,33 +170,21 @@
           game_hours: Number(inputs.filter(i => i.type === 'number')[0]?.value || 0),
           mmr: Number(inputs.filter(i => i.type === 'number')[1]?.value || 0),
           reserve: tournament.teamSize ? index >= tournament.teamSize : index >= 5,
-          captain: index === 0 || Boolean(captainBox?.checked)
+          captain: index === 0
         };
       }).filter(p => p.full_name || p.email || p.steam_url);
 
-      if (tournament.teamSize && roster.filter(p => !p.reserve).length < tournament.teamSize) {
-        throw new Error(`Нужно заполнить минимум ${tournament.teamSize} игроков основного состава.`);
-      }
-
-      const { data: team, error: teamError } = await client.from('teams').insert({
-        tournament_id: tournamentId,
-        name,
-        tag,
-        logo: tag.slice(0, 3),
-        region: 'Россия',
-        owner_id: session.user.id,
-        roster_public: []
-      }).select('id').single();
-      if (teamError) throw teamError;
-
-      const { error: appError } = await client.from('tournament_applications').insert({
-        tournament_id: tournamentId,
-        team_id: team.id,
-        submitted_by: session.user.id,
-        roster_private: roster
+      const { data, error } = await client.rpc('submit_tournament_application', {
+        p_tournament_id: tournamentId,
+        p_team_name: name,
+        p_tag: tag,
+        p_roster: roster
       });
-      if (appError) throw appError;
-      return team;
+      if (error) throw error;
+
+      const row = Array.isArray(data) ? data[0] : data;
+      if (!row?.team_id) throw new Error('Сервер не вернул созданную команду.');
+      return { id: row.team_id, applicationId: row.application_id, status: row.application_status };
     }
   };
 
