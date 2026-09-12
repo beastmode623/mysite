@@ -61,6 +61,18 @@
       gap: 8px;
     }
 
+    /* Keep the header auth control interactive and visually identical on every page. */
+    .btn-login {
+      transition: background-color .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease !important;
+    }
+    .btn-login:hover,
+    .btn-login:focus-visible {
+      background: rgba(52,211,153,.12) !important;
+      border-color: rgba(52,211,153,.48) !important;
+      color: #34d399 !important;
+      box-shadow: 0 0 0 1px rgba(52,211,153,.06), 0 0 18px rgba(52,211,153,.08) !important;
+    }
+
     .badge,
     .status,
     .round-badge,
@@ -392,8 +404,8 @@
         const button = teamForm.querySelector('button[type="submit"]');
         if (button) button.disabled = true;
         try {
-          const team = await api.registerTeam(teamForm);
-          alert('Заявка отправлена. Статус можно отслеживать в профиле.');
+          const result = await api.registerTeam(teamForm);
+          alert(`Заявка отправлена. Статус: ${result.status}.`);
           window.location.replace('profile.html');
         } catch (error) { showError(error.message); if (button) button.disabled = false; }
       }, true);
