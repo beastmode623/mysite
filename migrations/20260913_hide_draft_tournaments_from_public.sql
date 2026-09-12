@@ -1,0 +1,18 @@
+-- Draft tournaments are internal/admin-only.
+-- Production migration applied in Supabase as: hide_draft_tournaments_from_public
+--
+-- Key changes:
+-- 1. Added public.can_view_tournament(text), which returns true for non-draft
+--    tournaments and for authenticated site admins viewing drafts.
+-- 2. Replaced the public tournaments SELECT RLS policy so draft rows are hidden
+--    from guests and ordinary authenticated users while remaining visible to admins.
+-- 3. Added the same visibility gate to public tournament read RPCs:
+--    get_public_tournament_matches, get_public_tournament_placements,
+--    get_public_tournament_rules, get_public_tournament_structure,
+--    get_public_tournament_teams.
+-- 4. Frontend tournament catalog hides the Drafts filter unless
+--    public.is_tournament_admin() returns true.
+-- 5. tournament-draft.html verifies admin access before loading draft content.
+--
+-- This repository file documents the applied production change. The authoritative
+-- migration is recorded in the Supabase project migration history.
