@@ -1,0 +1,4 @@
+-- Production hardening applied to Supabase on 2026-09-12.
+-- admin_update_tournament now enforces admin_tournament_preflight before a tournament can enter ongoing/live from a pre-start state.
+-- submit_tournament_application and admin_update_tournament explicitly deny anon/public execution and grant authenticated only.
+-- Full canonical definitions live in the production migration history; this file tracks the deployment boundary.
