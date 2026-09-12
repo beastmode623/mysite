@@ -14,113 +14,50 @@
             --glass-border: rgba(52, 211, 153, 0.12); --glass-border-hover: rgba(52, 211, 153, 0.3);
             --accent-gradient: linear-gradient(135deg, var(--emerald) 0%, var(--tiffany) 100%);
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; background: linear-gradient(170deg, var(--bg-dark), var(--bg-mid) 50%, var(--bg-tiffany)); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
-        header { background: rgba(5,10,8,0.6); backdrop-filter: saturate(200%) blur(30px); -webkit-backdrop-filter: saturate(200%) blur(30px); border-bottom: 1px solid var(--glass-border); }
-        nav { max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 52px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-size: 21px; font-weight: 600; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
-        .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--emerald); }
-        .profile-link, .logout-link { display: none; }
-        .nav-links .btn-login { padding: 7px 20px; background: var(--glass-bg); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border: 1px solid var(--glass-border); border-radius: 980px; color: var(--text-primary) !important; font-weight: 500; transition: all 0.35s cubic-bezier(0.28,0.11,0.32,1); box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); cursor: pointer; }
-        .nav-links .btn-login:hover { background: var(--tiffany); color: #050a08 !important; border-color: var(--tiffany); box-shadow: 0 0 24px rgba(45,212,191,0.35), inset 0 1px 0 rgba(255,255,255,0.2); transform: translateY(-1px); }
-
-        .container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 24px; }
-        .glass { background: var(--glass-bg); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04), 0 0 80px rgba(52,211,153,0.06); }
-        .auth-container { padding: 48px 40px; max-width: 440px; width: 100%; }
-        .auth-header { text-align: center; margin-bottom: 32px; }
-        .auth-eyebrow { font-size: 13px; color: var(--tiffany); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 500; }
-        .auth-header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
-        .auth-header p { color: var(--text-secondary); font-size: 15px; }
-        .tabs { display: flex; gap: 4px; margin-bottom: 32px; padding: 4px; background: rgba(52,211,153,0.06); border-radius: 14px; }
-        .tab { flex: 1; padding: 12px 16px; background: transparent; border: none; border-radius: 10px; cursor: pointer; color: var(--text-secondary); font-size: 14px; font-weight: 500; font-family: inherit; transition: all 0.3s; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .tab.active { background: var(--accent-gradient); color: #050a08; font-weight: 600; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 13px; font-weight: 500; }
-        .form-group input { width: 100%; padding: 14px 16px; background: rgba(52,211,153,0.05); border: 1px solid var(--glass-border); border-radius: 14px; color: var(--text-primary); font-size: 15px; font-family: inherit; transition: border-color 0.3s, box-shadow 0.3s; }
-        .form-group input:focus { outline: none; border-color: var(--emerald); box-shadow: 0 0 0 3px rgba(52,211,153,0.1); }
-        .btn-primary { width: 100%; padding: 14px; background: var(--accent-gradient); color: #050a08; border: none; border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 8px; transition: box-shadow 0.3s; }
-        .btn-primary:hover { box-shadow: 0 4px 24px rgba(52,211,153,0.3); }
-        .divider { text-align: center; margin: 28px 0; color: var(--text-secondary); font-size: 12px; position: relative; }
-        .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 38%; height: 1px; background: var(--glass-border); }
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
-        .btn-steam { width: 100%; padding: 14px; background: rgba(52,211,153,0.06); color: var(--text-primary); border: 1px solid var(--glass-border); border-radius: 14px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-steam:hover { background: rgba(52,211,153,0.1); border-color: var(--glass-border-hover); }
-        .form-section { display: none; }
-        .form-section.active { display: block; }
-        footer { background: var(--bg-dark); padding: 40px 24px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--glass-border); }
-        @media (max-width: 480px) { .auth-container { padding: 32px 24px; } }
+        body { font-family: -apple-system, BlinkMacSystemFont,"SF Pro Display",sans-serif; background: linear-gradient(170deg,var(--bg-dark),var(--bg-mid) 50%,var(--bg-tiffany)); color:var(--text-primary); min-height:100vh; display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; }
+        header { background:rgba(5,10,8,0.6); backdrop-filter:saturate(200%) blur(30px); -webkit-backdrop-filter:saturate(200%) blur(30px); border-bottom:1px solid var(--glass-border); }
+        nav { max-width:1080px; margin:0 auto; padding:0 24px; height:52px; display:flex; align-items:center; justify-content:space-between; }
+        .logo { font-size:21px; font-weight:600; background:var(--accent-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-decoration:none; }
+        .nav-links { display:flex; gap:24px; list-style:none; align-items:center; }
+        .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:13px; transition:color .3s; }
+        .nav-links a:hover { color:var(--emerald); }
+        .profile-link,.logout-link { display:none; }
+        .nav-links .btn-login { padding:7px 20px; background:var(--glass-bg); backdrop-filter:blur(16px) saturate(160%); -webkit-backdrop-filter:blur(16px) saturate(160%); border:1px solid var(--glass-border); border-radius:980px; color:var(--text-primary)!important; font-weight:500; transition:all .35s cubic-bezier(.28,.11,.32,1); box-shadow:inset 0 1px 0 rgba(255,255,255,.04); cursor:pointer; }
+        .nav-links .btn-login:hover { background:var(--tiffany); color:#050a08!important; border-color:var(--tiffany); box-shadow:0 0 24px rgba(45,212,191,.35),inset 0 1px 0 rgba(255,255,255,.2); transform:translateY(-1px); }
+        .container { flex:1; display:flex; align-items:center; justify-content:center; padding:60px 24px; }
+        .glass { background:var(--glass-bg); backdrop-filter:blur(32px) saturate(180%); -webkit-backdrop-filter:blur(32px) saturate(180%); border:1px solid var(--glass-border); border-radius:28px; box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04),0 0 80px rgba(52,211,153,.06); }
+        .auth-container { padding:48px 40px; max-width:440px; width:100%; }
+        .auth-header { text-align:center; margin-bottom:32px; }
+        .auth-eyebrow { font-size:13px; color:var(--tiffany); text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px; font-weight:500; }
+        .auth-header h1 { font-size:32px; font-weight:700; letter-spacing:-.02em; margin-bottom:8px; }
+        .auth-header p { color:var(--text-secondary); font-size:15px; }
+        .tabs { display:flex; gap:4px; margin-bottom:32px; padding:4px; background:rgba(52,211,153,.06); border-radius:14px; }
+        .tab { flex:1; padding:12px 16px; background:transparent; border:none; border-radius:10px; cursor:pointer; color:var(--text-secondary); font-size:14px; font-weight:500; font-family:inherit; transition:all .3s; display:flex; align-items:center; justify-content:center; text-align:center; }
+        .tab.active { background:var(--accent-gradient); color:#050a08; font-weight:600; }
+        .form-group { margin-bottom:20px; }
+        .form-group label { display:block; margin-bottom:8px; color:var(--text-secondary); font-size:13px; font-weight:500; }
+        .form-group input { width:100%; padding:14px 16px; background:rgba(52,211,153,.05); border:1px solid var(--glass-border); border-radius:14px; color:var(--text-primary); font-size:15px; font-family:inherit; transition:border-color .3s,box-shadow .3s; }
+        .form-group input:focus { outline:none; border-color:var(--emerald); box-shadow:0 0 0 3px rgba(52,211,153,.1); }
+        .btn-primary { width:100%; padding:14px; background:var(--accent-gradient); color:#050a08; border:none; border-radius:14px; font-size:15px; font-weight:600; cursor:pointer; font-family:inherit; margin-top:8px; transition:box-shadow .3s; }
+        .btn-primary:hover { box-shadow:0 4px 24px rgba(52,211,153,.3); }
+        .divider { text-align:center; margin:28px 0; color:var(--text-secondary); font-size:12px; position:relative; }
+        .divider::before,.divider::after { content:''; position:absolute; top:50%; width:38%; height:1px; background:var(--glass-border); }
+        .divider::before { left:0; }.divider::after { right:0; }
+        .btn-steam { width:100%; padding:14px; background:rgba(52,211,153,.06); color:var(--text-primary); border:1px solid var(--glass-border); border-radius:14px; font-size:15px; font-weight:500; cursor:pointer; font-family:inherit; transition:all .3s; display:flex; align-items:center; justify-content:center; gap:10px; }
+        .btn-steam:hover { background:rgba(52,211,153,.1); border-color:var(--glass-border-hover); }
+        .btn-steam:disabled { opacity:.6; cursor:wait; }
+        .steam-status { min-height:20px; margin-top:12px; text-align:center; color:var(--text-secondary); font-size:12px; line-height:1.45; }
+        .steam-status.error { color:#fca5a5; }.steam-status.ok { color:var(--emerald); }
+        .form-section { display:none; }.form-section.active { display:block; }
+        footer { background:var(--bg-dark); padding:40px 24px; text-align:center; color:var(--text-secondary); font-size:12px; border-top:1px solid var(--glass-border); }
+        @media(max-width:480px){.auth-container{padding:32px 24px}}
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo">Esports</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="tournaments.html">Турниры</a></li>
-                <li><a href="teams.html">Статистика</a></li>
-                <li class="profile-link"><a href="profile.html">Профиль</a></li>
-                <li class="login-link"><a href="login.html" class="btn-login">Вход</a></li>
-                <li class="logout-link"><a href="#" class="btn-login" onclick="logout(); return false;">Выйти</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <div class="auth-container glass">
-            <div class="auth-header">
-                <p class="auth-eyebrow">Добро пожаловать</p>
-                <h1>Войти в аккаунт</h1>
-                <p>или создайте новый</p>
-            </div>
-            <div class="tabs">
-                <div class="tab active" data-tab="login">Вход</div>
-                <div class="tab" data-tab="register">Регистрация</div>
-            </div>
-            <div class="form-section active" id="loginSection">
-                <form id="loginForm">
-                    <div class="form-group"><label>Email или никнейм</label><input type="text" id="loginEmail" required></div>
-                    <div class="form-group"><label>Пароль</label><input type="password" id="loginPassword" required></div>
-                    <button type="submit" class="btn-primary">Войти</button>
-                </form>
-            </div>
-            <div class="form-section" id="registerSection">
-                <form id="registerForm">
-                    <div class="form-group"><label>Никнейм</label><input type="text" id="regNickname" required></div>
-                    <div class="form-group"><label>Email</label><input type="email" id="regEmail" required></div>
-                    <div class="form-group"><label>Пароль</label><input type="password" id="regPassword" required></div>
-                    <div class="form-group"><label>Повторите пароль</label><input type="password" id="regPasswordConfirm" required></div>
-                    <button type="submit" class="btn-primary">Создать аккаунт</button>
-                </form>
-            </div>
-            <div class="divider">или</div>
-            <button class="btn-steam">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.979 0C5.678 0 .511 4.86.022 10.965l6.432 2.658c.545-.374 1.203-.594 1.909-.594.063 0 .125.004.188.006l2.861-4.142V8.83c0-2.456 2.006-4.463 4.464-4.463 2.455 0 4.46 2.005 4.46 4.461s-2.005 4.462-4.46 4.462h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 12-5.373 12-12S18.606 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.417-9.383c0-1.665-1.353-3.02-3.018-3.02-1.666 0-3.019 1.355-3.019 3.02 0 1.666 1.353 3.021 3.019 3.021 1.665 0 3.018-1.355 3.018-3.021zm-5.273-.005c0-1.252 1.013-2.266 2.261-2.266 1.246 0 2.26 1.014 2.26 2.266 0 1.251-1.014 2.265-2.26 2.265-1.248 0-2.261-1.014-2.261-2.265z"/>
-                </svg>
-                Войти через Steam
-            </button>
-        </div>
-    </div>
-
-    <footer><p>© 2026 Esports Platform. Все права защищены.</p></footer>
-
-    <script>
-        const tabs = document.querySelectorAll('.tab');
-        const ls = document.getElementById('loginSection');
-        const rs = document.getElementById('registerSection');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                if (tab.dataset.tab === 'login') { ls.classList.add('active'); rs.classList.remove('active'); }
-                else { ls.classList.remove('active'); rs.classList.add('active'); }
-            });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
-    <script src="app.js"></script>
-</body>
-</html>
+<header><nav><a href="index.html" class="logo">Esports</a><ul class="nav-links"><li><a href="index.html">Главная</a></li><li><a href="tournaments.html">Турниры</a></li><li><a href="teams.html">Статистика</a></li><li class="profile-link"><a href="profile.html">Профиль</a></li><li class="login-link"><a href="login.html" class="btn-login">Вход</a></li><li class="logout-link"><a href="#" class="btn-login" onclick="logout();return false;">Выйти</a></li></ul></nav></header>
+<div class="container"><div class="auth-container glass"><div class="auth-header"><p class="auth-eyebrow">Добро пожаловать</p><h1>Войти в аккаунт</h1><p>или создайте новый</p></div><div class="tabs"><div class="tab active" data-tab="login">Вход</div><div class="tab" data-tab="register">Регистрация</div></div><div class="form-section active" id="loginSection"><form id="loginForm"><div class="form-group"><label>Email или никнейм</label><input type="text" id="loginEmail" required></div><div class="form-group"><label>Пароль</label><input type="password" id="loginPassword" required></div><button type="submit" class="btn-primary">Войти</button></form></div><div class="form-section" id="registerSection"><form id="registerForm"><div class="form-group"><label>Никнейм</label><input type="text" id="regNickname" required></div><div class="form-group"><label>Email</label><input type="email" id="regEmail" required></div><div class="form-group"><label>Пароль</label><input type="password" id="regPassword" required></div><div class="form-group"><label>Повторите пароль</label><input type="password" id="regPasswordConfirm" required></div><button type="submit" class="btn-primary">Создать аккаунт</button></form></div><div class="divider">или</div><button id="steamLogin" class="btn-steam" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M11.979 0C5.678 0 .511 4.86.022 10.965l6.432 2.658c.545-.374 1.203-.594 1.909-.594.063 0 .125.004.188.006l2.861-4.142V8.83c0-2.456 2.006-4.463 4.464-4.463 2.455 0 4.46 2.005 4.46 4.461s-2.005 4.462-4.46 4.462h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 12-5.373 12-12S18.606 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.417-9.383c0-1.665-1.353-3.02-3.018-3.02-1.666 0-3.019 1.355-3.019 3.02 0 1.666 1.353 3.021 3.019 3.021 1.665 0 3.018-1.355 3.018-3.021zm-5.273-.005c0-1.252 1.013-2.266 2.261-2.266 1.246 0 2.26 1.014 2.26 2.266 0 1.251-1.014 2.265-2.26 2.265-1.248 0-2.261-1.014-2.261-2.265z"/></svg>Войти через Steam</button><div id="steamStatus" class="steam-status">Вход работает только для Steam, который уже привязан к аккаунту платформы.</div></div></div>
+<footer><p>© 2026 Esports Platform. Все права защищены.</p></footer>
+<script>const tabs=document.querySelectorAll('.tab'),ls=document.getElementById('loginSection'),rs=document.getElementById('registerSection');tabs.forEach(tab=>tab.addEventListener('click',()=>{tabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');if(tab.dataset.tab==='login'){ls.classList.add('active');rs.classList.remove('active')}else{ls.classList.remove('active');rs.classList.add('active')}}));</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script><script src="app.js"></script>
+<script>document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('steamLogin'),s=document.getElementById('steamStatus'),q=new URLSearchParams(location.search),steam=q.get('steam');if(steam==='not_linked'){s.textContent='Этот Steam ещё не привязан. Сначала войдите по email/паролю или зарегистрируйтесь, затем привяжите Steam в игровом профиле.';s.className='steam-status error'}else if(steam==='error'){s.textContent=q.get('steam_message')||'Не удалось войти через Steam.';s.className='steam-status error'}b.addEventListener('click',async()=>{b.disabled=true;s.textContent='Открываем официальный Steam...';s.className='steam-status';try{const raw=q.get('return')||'profile.html';let target=new URL(raw,location.origin);if(target.origin!==location.origin)target=new URL('profile.html',location.origin);const {data,error}=await EsportsAPI.client.functions.invoke('steam-auth',{body:{mode:'login-start',returnUrl:target.toString()}});if(error||!data?.url)throw new Error(data?.error||error?.message||'Не удалось запустить Steam-вход');location.href=data.url}catch(e){b.disabled=false;s.textContent=e.message||String(e);s.className='steam-status error'}})});</script>
+</body></html>
