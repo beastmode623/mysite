@@ -94,6 +94,11 @@
       line-height: 1.2 !important;
     }
 
+    /* Keep text clear of leading search icons after the global input normalization. */
+    .search input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']) {
+      padding-left: 52px !important;
+    }
+
     textarea {
       padding: 12px 14px !important;
       line-height: 1.45 !important;
@@ -378,15 +383,9 @@
     const teamForm = document.getElementById('registerTeamForm');
     if (teamForm) {
       if (!initialSession) {
-        alert('Для регистрации команды необходимо войти в аккаунт.');
-        location.href = `login.html?return=${encodeURIComponent(location.pathname + location.search)}`;
+        alert('Для регистрации команды сначала войдите в аккаунт.');
+        window.location.replace(`login.html?return=${encodeURIComponent(location.pathname + location.search)}`);
         return;
-      }
-      const tournamentId = new URLSearchParams(location.search).get('tournament') || new URLSearchParams(location.search).get('id');
-      const tournament = tournamentId ? await api.getTournament(tournamentId).catch(() => null) : null;
-      if (!tournament || tournament.status !== 'registration') {
-        const button = teamForm.querySelector('button[type="submit"]');
-        if (button) { button.disabled = true; button.textContent = tournament?.status === 'draft' ? 'Турнир в черновике' : 'Регистрация закрыта'; }
       }
       teamForm.addEventListener('submit', async event => {
         event.preventDefault(); event.stopImmediatePropagation();
@@ -394,36 +393,10 @@
         if (button) button.disabled = true;
         try {
           const team = await api.registerTeam(teamForm);
-          alert('Заявка команды отправлена на рассмотрение.');
-          location.href = `team.html?id=${encodeURIComponent(team.id)}`;
+          alert('Заявка отправлена. Статус можно отслеживать в профиле.');
+          window.location.replace('profile.html');
         } catch (error) { showError(error.message); if (button) button.disabled = false; }
       }, true);
-    }
-
-    if (location.pathname.endsWith('/profile.html') || location.pathname.endsWith('profile.html')) {
-      if (!initialSession) { location.replace('login.html?return=profile.html'); return; }
-      const profile = await api.getProfile().catch(() => null);
-      const nickname = profile?.nickname || initialSession.user.user_metadata?.nickname || initialSession.user.email?.split('@')[0] || 'Player';
-      const h1 = document.querySelector('.profile-hero h1');
-      const avatar = document.querySelector('.profile-avatar');
-      const handle = document.querySelector('.profile-handle');
-      const teamBadge = document.querySelector('.profile-team');
-      if (h1) h1.textContent = nickname;
-      if (avatar) avatar.textContent = nickname.charAt(0).toUpperCase();
-      if (handle) handle.textContent = `@${nickname} · ${initialSession.user.email}`;
-      const { data: ownedTeams } = await client.from('teams').select('name').eq('owner_id', initialSession.user.id).limit(1);
-      if (teamBadge) teamBadge.textContent = ownedTeams?.[0]?.name || 'Без команды';
-
-      const list = document.getElementById('applicationsList');
-      if (list) {
-        const apps = await api.getMyApplications().catch(() => []);
-        const statusText = { pending: 'На рассмотрении', approved: 'Одобрена', rejected: 'Отклонена' };
-        list.innerHTML = apps.length ? apps.map(a => `
-          <div class="application-row glass">
-            <div><strong>${a.tournament?.name || a.tournament_id}</strong><span>${a.team?.name || 'Команда'} · ${a.tournament?.game || ''}</span></div>
-            <span class="application-status status-${a.status}">${statusText[a.status] || a.status}</span>
-          </div>`).join('') : '<div class="glass empty-state"><strong>Заявок пока нет</strong>Здесь появятся заявки команд, отправленные на турниры.</div>';
-      }
     }
   });
 })();
