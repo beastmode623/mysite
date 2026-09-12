@@ -1,0 +1,7 @@
+-- Applied in Supabase production on 2026-09-12.
+-- Includes:
+-- 1) bracket route concurrency/lifecycle hardening with DB trigger + advisory locks;
+-- 2) loser route pair integrity constraint;
+-- 3) hardened winner/loser link/unlink RPCs and tournament audit events;
+-- 4) removal of legacy direct INSERT/UPDATE/DELETE grants from browser roles;
+-- 5) expanded admin_system_health security checks (RLS, anon SECURITY DEFINER, direct writes, search_path).
